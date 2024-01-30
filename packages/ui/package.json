@@ -1,0 +1,36 @@
+{
+  "name": "@acme/ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.274.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.46.2",
+    "react-input-mask": "^2.0.4",
+    "tailwind-merge": "^1.14.0"
+  },
+  "devDependencies": {
+    "@storybook/jest": "^0.2.3",
+    "@storybook/react": "^7.5.2",
+    "@storybook/testing-library": "^0.2.2",
+    "@turbo/gen": "^1.10.16",
+    "@types/react": "18.2.33",
+    "@types/react-input-mask": "^3.0.4",
+    "eslint-config-custom": "workspace:*",
+    "tailwind-config": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

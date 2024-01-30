@@ -11,8 +11,8 @@ import { callStripeApi } from "./api";
 
 export const getAllPlans: GetAllPlans = async function () {
   const response = await callStripeApi("/prices?expand[]=data.product");
-
   const plans: SubscriptionPlan[] = [];
+  console.log(response.data);
 
   response.data.forEach((price: any) => {
     const product = price.product;
@@ -47,7 +47,7 @@ export const getAllPlans: GetAllPlans = async function () {
       currency: price.currency,
     });
   });
-
+  console.log(plans)
   return plans.filter((product: any) => product.variants.length > 0);
 };
 

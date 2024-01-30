@@ -1,0 +1,16 @@
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "../utils";
+
+const {{ name }} = cva("", {
+  variants: {},
+});
+
+export interface {{ ufirst name }}Props
+  extends React.HtmlHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof {{ name }}> {}
+
+const {{ ufirst name }} = ({}) => {
+  return <div className={cn({{ name }}({}))}>{{ ufirst name }} component</div>;
+};
+
+export default {{ ufirst name }};

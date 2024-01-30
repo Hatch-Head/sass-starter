@@ -1,4 +1,7 @@
-@layer base {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* @layer base {
   * {
     @apply border-border;
   }
@@ -15,8 +18,4 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-}
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+} */

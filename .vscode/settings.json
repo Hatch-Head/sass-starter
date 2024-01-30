@@ -1,7 +1,7 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
+    "source.organizeImports": "explicit"
   },
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
@@ -22,5 +22,15 @@
   ],
   "i18n-ally.localesPaths": ["apps/web/locales"],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.enabledFrameworks": ["next-intl"]
+  "i18n-ally.enabledFrameworks": ["next-intl"],
+  "cSpell.words": [
+    "autodocs",
+    "clsx",
+    "lucide",
+    "nextjs",
+    "subcomponents",
+    "testid",
+    "trpc",
+    "ufirst"
+  ]
 }

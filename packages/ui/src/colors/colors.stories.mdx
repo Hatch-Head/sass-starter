@@ -1,0 +1,20 @@
+import { ColorItem, ColorPalette, Meta } from '@storybook/blocks';
+import tailwindConfig from "tailwind-config";
+
+<Meta title="Style Guide/Color" />
+
+
+<ColorPalette>
+{
+ Object.keys(tailwindConfig.theme.colors).map(colorKey => {
+  const color = tailwindConfig.theme.colors[colorKey];
+  if (typeof color === 'string') {
+    return <ColorItem title={color} subtitle={colorKey} colors={{ [colorKey]: color }} />
+  } 
+  if (typeof color === 'object') {
+    return <ColorItem title={colorKey} subtitle={colorKey} colors={color} />
+  }
+ }) 
+}
+ 
+</ColorPalette>

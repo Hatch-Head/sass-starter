@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
     "db:generate": "prisma generate",
-    "db:push": "dotenv -c -e ../../.env -- prisma db push --skip-generate",
+    "db:push": "dotenv -c -e ../../.env -- prisma db push --skip-generate --accept-data-loss",
     "db:studio": "dotenv -c -e ../../.env -- prisma studio"
   },
   "types": "./**/.tsx",

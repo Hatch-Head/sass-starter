@@ -5,9 +5,9 @@ import {
   Html,
   Section,
   Tailwind,
+  Text,
 } from "@react-email/components";
 import { PropsWithChildren } from "react";
-import { lightVariables } from "tailwind-config";
 import { Logo } from "./Logo";
 
 export default function Wrapper({ children }: PropsWithChildren) {
@@ -21,57 +21,18 @@ export default function Wrapper({ children }: PropsWithChildren) {
           fontStyle="normal"
         />
       </Head>
-      <Tailwind
-        config={{
-          theme: {
-            extend: {
-              colors: {
-                border: lightVariables.colors.border,
-                input: lightVariables.colors.input,
-                ring: lightVariables.colors.ring,
-                background: lightVariables.colors.background,
-                foreground: lightVariables.colors.foreground,
-                primary: {
-                  DEFAULT: lightVariables.colors.primary,
-                  foreground: lightVariables.colors["primary-foreground"],
-                },
-                secondary: {
-                  DEFAULT: lightVariables.colors.secondary,
-                  foreground: lightVariables.colors["secondary-foreground"],
-                },
-                error: {
-                  DEFAULT: lightVariables.colors.error,
-                  foreground: lightVariables.colors["error-foreground"],
-                },
-                success: {
-                  DEFAULT: lightVariables.colors.success,
-                  foreground: lightVariables.colors["success-foreground"],
-                },
-                muted: {
-                  DEFAULT: lightVariables.colors.muted,
-                  foreground: lightVariables.colors["muted-foreground"],
-                },
-                accent: {
-                  DEFAULT: lightVariables.colors.accent,
-                  foreground: lightVariables.colors["accent-foreground"],
-                },
-                popover: {
-                  DEFAULT: lightVariables.colors.popover,
-                  foreground: lightVariables.colors["popover-foreground"],
-                },
-                card: {
-                  DEFAULT: lightVariables.colors.card,
-                  foreground: lightVariables.colors["card-foreground"],
-                },
-              },
-            },
-          },
-        }}
-      >
-        <Section className="p-1">
-          <Container className="border-border bg-card text-card-foreground rounded-lg border border-solid p-6">
+      <Tailwind>
+        <Section className="bg-gray-100 p-8">
+          <Container className="max-w-lg rounded-lg border border-solid border-gray-200 bg-white p-6 text-gray-800 shadow-2xl">
             <Logo />
             {children}
+          </Container>
+
+          <Container className="max-w-lg py-6  text-gray-500">
+            <Text className="text-xs">
+              Copyright ACME {new Date().getFullYear()} <br />
+              123 Fake St, Brisbane Australia
+            </Text>
           </Container>
         </Section>
       </Tailwind>

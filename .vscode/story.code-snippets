@@ -1,0 +1,36 @@
+{
+  "Story scaffolding": {
+    "prefix": "story",
+    "scope": "javascript,typescript,typescriptreact",
+    "body": [
+      "import type { Meta, StoryObj } from \"@storybook/react\";",
+      "import Component from \"./$0\";",
+      "",
+      "const meta: Meta<typeof Component> = {",
+      "  component: Component,",
+      "  tags: [\"autodocs\"],",
+      "  title: \"Button\",",
+      "parameters: {",
+      "  docs: {",
+      "    description: {",
+      "      component: \"Buttons communicate actions that users can take.\",",
+      "    },",
+      "  },",
+      "},",
+      "};",
+      "",
+      "export default meta;",
+      "type Story = StoryObj<typeof Component>;",
+      "",
+      "export const Spinner: Story = {",
+      "  args: {",
+      "    ",
+      "  },",
+      "  argTypes: {",
+      "  },",
+      "};",
+      ""
+    ],
+    "description": "Story scaffolding"
+  }
+}

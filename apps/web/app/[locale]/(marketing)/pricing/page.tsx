@@ -23,7 +23,6 @@ export default async function PricingPage({
               {t("pricing.description")}
             </p>
           </div>
-
           <div className="container max-w-4xl">
             <PricingTable plans={plans} />
           </div>

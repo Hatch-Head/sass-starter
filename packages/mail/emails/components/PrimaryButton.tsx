@@ -12,7 +12,7 @@ export default function PrimaryButton({
       pX={20}
       pY={12}
       href={href}
-      className="bg-primary text-primary-foreground rounded-md"
+      className="cursor-pointer rounded-md bg-blue-500 text-white hover:bg-blue-700"
     >
       {children}
     </Button>
