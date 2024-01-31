@@ -25,6 +25,9 @@ const config: Config = {
       placeholder: 'placeholder',
     },
     extend: {
+      blur: {
+        xs: '2px',
+      },
       keyframes: {
         "fadeInUp": {
           from: {

@@ -1,16 +1,17 @@
+"use client";
+
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import React, { forwardRef } from "react";
+import React, { forwardRef, type InputHTMLAttributes } from "react";
 import { type FieldError } from "react-hook-form";
-import InputMask, { Props as InputMaskProps } from "react-input-mask";
 import Error from "../error/error";
 import Spinner from "../spinner/spinner";
-import { cn } from "../utils";
-
 import { InfoDisclosure, type InfoDisclosureProps } from "../toolTip/toolTip";
+import { cn } from "../utils";
+import AddOn from "./addOn";
 
 const containerVariants = cva(
-  "focus-within:border-primary-300 focus-within:outline disabled-within:bg-error-500 flex w-full grow items-stretch rounded-md border items-center outline outline-0 bg-white",
+  "focus-within:outline focus-within:ring-4 disabled-within:bg-error-500 flex w-full rounded-md border items-center outline outline-0 bg-white overflow-hidden ",
   {
     variants: {
       disabled: {
@@ -18,12 +19,13 @@ const containerVariants = cva(
         false: "",
       },
       error: {
-        true: "border-error-500 text-error-500",
-        false: "text-gray-900 border-neutral-300 text-gray-900",
+        true: "border-error-500 text-error-500 focus-within:border-error-300 focus-within:ring-error-100",
+        false:
+          "text-gray-900 border-gray-300 text-gray-900 focus-within:border-primary-300 focus-within:ring-primary-100",
       },
       advancedAddon: {
-        true: "pr-3.5",
-        false: "px-3.5",
+        true: "",
+        false: "",
       },
     },
     defaultVariants: {
@@ -32,7 +34,7 @@ const containerVariants = cva(
   },
 );
 
-export interface InputProps extends Omit<InputMaskProps, "advancedAddon"> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   isLoading?: boolean;
   error?: string | FieldError;
@@ -41,14 +43,17 @@ export interface InputProps extends Omit<InputMaskProps, "advancedAddon"> {
   className?: string;
   description?: string;
   tooltip?: InfoDisclosureProps;
-  addon?: string | React.ReactElement;
-  mask?: string;
+  leftAddon?: string | React.ReactElement;
+  rightAddon?: string | React.ReactElement;
+  mask?: string | Array<string | RegExp>;
+  inputClassName?: string;
 }
 
-const TextInput = forwardRef<InputMask, InputProps>(
+const TextInput = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      addon,
+      leftAddon,
+      rightAddon,
       className = "",
       label = undefined,
       error,
@@ -56,6 +61,7 @@ const TextInput = forwardRef<InputMask, InputProps>(
       description,
       leftAccessory,
       rightAccessory,
+      inputClassName,
       tooltip = undefined,
       mask = "",
       disabled,
@@ -68,8 +74,6 @@ const TextInput = forwardRef<InputMask, InputProps>(
 
     const showLabel =
       (label !== undefined && label !== "") || typeof tooltip === "object";
-
-    const isAdvancedAddon = typeof addon === "object";
 
     const rightItem = () => {
       if (isLoading === true) {
@@ -89,9 +93,11 @@ const TextInput = forwardRef<InputMask, InputProps>(
     };
 
     return (
-      <div className={`form-control w-full space-y-1.5 ${className}`}>
+      <div
+        className={`form-control flex w-full  flex-col space-y-1.5 ${className}`}
+      >
         {showLabel && (
-          <label className="label inline-flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-white">
+          <label className="label inline-flex items-center space-x-2 text-sm font-bold text-gray-700">
             {label && <span className="label-text">{label}</span>}
             {tooltip && <InfoDisclosure {...tooltip} />}
           </label>
@@ -101,20 +107,14 @@ const TextInput = forwardRef<InputMask, InputProps>(
             containerVariants({
               disabled,
               error: errorMessage !== undefined,
-              advancedAddon: isAdvancedAddon,
             }),
           )}
         >
-          {addon && (
-            <div
-              className={`flex h-[44px] h-full grow items-center justify-center border-r border-neutral-500 ${
-                !isAdvancedAddon ? "mr-3 pr-2" : "mr-2 mr-3"
-              }  text-gray-500`}
-            >
-              {addon}
-            </div>
+          {leftAddon && (
+            <AddOn isAdvanced={typeof leftAddon === "object"}>
+              {leftAddon}
+            </AddOn>
           )}
-
           {leftAccessory && (
             <div className="mr-2 flex items-center text-gray-500">
               <Slot size={16} className="">
@@ -122,15 +122,20 @@ const TextInput = forwardRef<InputMask, InputProps>(
               </Slot>
             </div>
           )}
-          <InputMask
-            mask={mask}
+          <input
+            //mask={mask}
             type="text"
-            className="flex shrink grow appearance-none border-0 bg-transparent py-2 ring-0 focus:outline-none active:outline-0 disabled:bg-transparent"
+            className={`flex w-full shrink grow appearance-none border-0 bg-transparent px-4 py-2 ring-0 focus:outline-none active:outline-0 ${inputClassName}`}
             disabled={disabled}
             {...props}
             ref={ref}
           />
           {rightItem()}
+          {rightAddon && (
+            <AddOn isAdvanced={typeof rightAddon === "object"} right>
+              {rightAddon}
+            </AddOn>
+          )}
         </div>
         {description && !error && (
           <div className="shrink grow text-xs text-gray-500">{description}</div>

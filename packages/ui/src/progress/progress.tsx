@@ -21,16 +21,20 @@ const barStyles = cva(
         true: "bg-success-500",
         false: "bg-primary-600",
       },
+      error: {
+        true: "bg-error-500",
+        false: "",
+      },
     },
   },
 );
 
-export interface ProgressProps
-  extends React.HtmlHTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof styles> {
+export interface ProgressProps extends VariantProps<typeof styles> {
   progress?: number;
   base?: number;
   label?: boolean;
+  className?: string;
+  error?: string;
 }
 
 const Progress = ({
@@ -38,19 +42,27 @@ const Progress = ({
   progress = 0,
   base = 100,
   label = false,
-  labelPosition = "left",
+  labelPosition,
+  error,
 }: ProgressProps) => {
   const percent = progress > 0 ? Math.floor((progress / base) * 100) : 0;
-  const width = `${percent}%`;
+  const width = error ? "100%" : `${percent}%`;
+
+  const position = error ? "bottom" : labelPosition || "left";
+  const showLabel = label || error;
+
   return (
-    <div className={cn(styles({ labelPosition }), className)}>
+    <div className={cn(styles({ labelPosition: position }), className)}>
       <div className="bg-primary-100 inline-flex inline-flex h-[8px] w-full  overflow-hidden rounded-full">
         <div
-          className={barStyles({ success: progress >= 100 })}
+          className={barStyles({
+            success: progress >= 100,
+            error: !!error,
+          })}
           style={{ width }}
         />
       </div>
-      {label && <div>{width}</div>}
+      {showLabel && <div className="animation-fade-up">{error || width}</div>}
     </div>
   );
 };

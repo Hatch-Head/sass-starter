@@ -80,16 +80,48 @@ export const Default: Story = {
   },
 };
 
-export const SelectAddonBasic: Story = () => (
-  <Components
-    label="Website"
-    placeholder="Enter a phone number"
-    addon="http://"
-  />
-);
-SelectAddonBasic.args = {};
+export const WithError: Story = () => {
+  const [value, setValue] = useState("us");
 
-export const SelectAddonAdvanced: Story = () => {
+  return (
+    <Components
+      label="Phone number"
+      placeholder="Enter a phone number"
+      error="Phone number is required"
+    />
+  );
+};
+
+WithError.args = {};
+WithError.parameters = {
+  docs: {
+    description: {
+      story: "Error state can be shown by passing an error string.",
+    },
+  },
+};
+
+export const AddOns: Story = () => (
+  <div className="flex flex-col space-y-3">
+    <Components
+      label="Website"
+      placeholder="Enter a phone number"
+      leftAddon="http://"
+    />
+    <Components label="Price" placeholder="$0.00" rightAddon="USD" />
+  </div>
+);
+AddOns.args = {};
+AddOns.parameters = {
+  docs: {
+    description: {
+      story:
+        "Addons can be added to the left or right of the input. Addons support strings or react components.",
+    },
+  },
+};
+
+export const SelectAddon: Story = () => {
   const [value, setValue] = useState("us");
   const [textValue, setTextValue] = useState("");
 
@@ -98,11 +130,8 @@ export const SelectAddonAdvanced: Story = () => {
       <Components
         label="Phone number"
         placeholder="Enter a phone number"
-        inputMode="numeric"
-        mask="0\7 9999 9999"
-        maskChar=" "
         onChange={(e) => setTextValue(e.target.value)}
-        addon={
+        leftAddon={
           <Select
             asChild
             className="w-[80px]"
@@ -115,36 +144,97 @@ export const SelectAddonAdvanced: Story = () => {
           </Select>
         }
       />
-      <code className="rounded-lg bg-gray-100 p-4 text-sm text-gray-600">
-        <pre>{JSON.stringify({ value, textValue }, null, 4)}</pre>
+      <code className="w-[302px] rounded-lg bg-gray-100 p-4 text-sm text-gray-600">
+        <pre>{JSON.stringify({ selectValue: value, textValue }, null, 4)}</pre>
       </code>
     </div>
   );
 };
 
-SelectAddonAdvanced.args = {};
-
-SelectAddonAdvanced.parameters = {
+SelectAddon.args = {};
+SelectAddon.parameters = {
   docs: {
+    description: {
+      story:
+        "Example using a `<Select />` component as an addon using the `asChild` prop to removing select styling. Note that the value of each element is managed individually.",
+    },
     source: {
       code: `
 import Select from '@ui/select';
+import TextInput from '@ui/textInput';
+
 const [value, setValue] = useState("us");
 const [textValue, setTextValue] = useState("");
 
-<Select
+<TextInput
   label="Phone number"
   placeholder="Enter a phone number"
-  inputMode="numeric"
-  mask="0\\7 9999 9999"
-  maskChar=" "
   onChange={(e) => setTextValue(e.target.value)}
   addon={
     <Select
       asChild
       className="w-[80px]"
       placeholder="$"
+    >
+      <SelectItem value="us">US</SelectItem>
+      <SelectItem value="au">AUD</SelectItem>
+    </Select>
+  }
+/>
+      `,
+    },
+  },
+};
+
+export const RightAddOn: Story = () => {
+  const [value, setValue] = useState("us");
+
+  return (
+    <div className="flex flex-col space-y-4">
+      <Components
+        label="Phone number"
+        placeholder="Enter a phone number"
+        rightAddon={
+          <Select
+            asChild
+            className="w-[80px]"
+            placeholder="$"
+            value={value}
+            align="end"
+            onValueChange={setValue}
+          >
+            <SelectItem value="us">US</SelectItem>
+            <SelectItem value="au">AUD</SelectItem>
+          </Select>
+        }
+      />
+    </div>
+  );
+};
+
+RightAddOn.args = {};
+
+RightAddOn.parameters = {
+  docs: {
+    description: {
+      story:
+        "Using a select as a right addon requires setting the correct `align` prop on the ```<Select />``` component.",
+    },
+    source: {
+      code: `
+import { Select, SelectItem } from '@ui/select';
+import TextInput from '@ui/textInput';
+
+<TextInput
+  label="Phone number"
+  placeholder="Enter a phone number"
+  rightAddon={
+    <Select
+      asChild
+      className="w-[80px]"
+      placeholder="$"
       value={value}
+      align="end"
       onValueChange={setValue}
     >
       <SelectItem value="us">US</SelectItem>
@@ -152,6 +242,41 @@ const [textValue, setTextValue] = useState("");
     </Select>
   }
 />
+      `,
+    },
+  },
+};
+
+export const InputMasks: Story = () => {
+  return (
+    <Components
+      label="Credit card"
+      placeholder="Enter a credit card number"
+      mask={"9999 9999 9999 9999"}
+      maskChar={" "}
+      className="w-[260px]"
+    />
+  );
+};
+
+InputMasks.args = {};
+InputMasks.parameters = {
+  docs: {
+    description: {
+      story: "The component supports input masks to properly format strings.",
+    },
+    source: {
+      code: `
+import TextInput from '@ui/textInput';
+
+<TextInput
+  label="Credit card"
+  placeholder="Enter a credit card number"
+  mask={"9999 9999 9999 9999"}
+  maskChar={" "}
+  className="w-[260px]"
+/>
+
       `,
     },
   },

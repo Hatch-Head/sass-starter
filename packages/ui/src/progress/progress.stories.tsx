@@ -3,6 +3,15 @@ import Component from "./progress";
 const meta: Meta<typeof Component> = {
   component: Component,
   title: "components/Progress",
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Progress bar is used to indicate the progress of an operation. When completed, the progress bar will be styled to show success.",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -32,6 +41,25 @@ export const Progress: Story = {
     },
     base: {
       control: { type: "number" },
+    },
+    error: {
+      control: { type: "text" },
+    },
+  },
+};
+
+export const Error: Story = {
+  args: {
+    error: "Something went wrong",
+    className: "min-w-[400px]",
+    label: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When an error is passed, the progress bar will be styled to show error and will appear full. The label will be replaced with the error message and forced into the `bottom` position.",
+      },
     },
   },
 };

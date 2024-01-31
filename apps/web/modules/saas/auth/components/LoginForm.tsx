@@ -1,5 +1,6 @@
 "use client";
 
+import { PasswordInput, TextInput } from "@acme/ui";
 import { appConfig } from "@config";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { apiClient } from "@shared/lib";
@@ -9,7 +10,6 @@ import {
   AlertTitle,
   Button,
   Icon,
-  Input,
 } from "@ui/components";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -51,7 +51,7 @@ export function LoginForm() {
     handleSubmit,
     reset,
     setValue,
-    formState: { isSubmitting, isSubmitted },
+    formState: { isSubmitting, isSubmitted, errors },
   } = useForm<FormValues>({ resolver: zodResolver(formSchema) });
 
   const invitationCode = searchParams.get("invitationCode");
@@ -120,7 +120,7 @@ export function LoginForm() {
   };
 
   return (
-    <div>
+    <div className="bg-white text-gray-900">
       <h1 className="text-3xl font-extrabold">{t("auth.login.title")}</h1>
       <p className="text-muted-foreground mb-6 mt-4">
         {t("auth.login.subtitle")}
@@ -150,7 +150,7 @@ export function LoginForm() {
           </Alert>
         )}
         <div>
-          <label htmlFor="email" className="mb-1 block font-semibold">
+          {/* <label htmlFor="email" className="mb-1 block font-semibold">
             {t("auth.login.email")}
           </label>
           <Input
@@ -158,19 +158,29 @@ export function LoginForm() {
             {...register("email", { required: true })}
             required
             autoComplete="email"
+          /> */}
+          <TextInput
+            label={t("auth.login.email")}
+            autoComplete="email"
+            {...register("email")}
+            error={errors.email?.message}
           />
         </div>
         {signinMode === "password" && (
           <div>
-            <label htmlFor="password" className="mb-1 block font-semibold">
-              {t("auth.login.password")}
-            </label>
-            <Input
+            <PasswordInput
+              label={t("auth.login.password")}
+              autoComplete="current-password"
+              {...register("password", { required: true })}
+              error={errors.password?.message}
+            />
+
+            {/* <Input
               type="password"
               {...register("password", { required: true })}
               required
               autoComplete="current-password"
-            />
+            /> */}
             <div className="mt-1 text-right text-sm">
               <Link href="/auth/forgot-password">
                 {t("auth.login.forgotPassword")}

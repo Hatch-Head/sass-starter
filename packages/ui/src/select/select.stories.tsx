@@ -116,3 +116,17 @@ export const DisabledOptions: Story = (args: SelectProps) => (
   </Select>
 );
 DisabledOptions.args = {};
+
+export const Advanced: Story = (args: SelectProps) => (
+  <Select className="w-[180px]" {...args} value="option1">
+    <SelectGroup>
+      <SelectItem value="option1">Option 1</SelectItem>
+      <SelectItem value="option2" disabled>
+        Option 2
+      </SelectItem>
+      <SelectItem value="option3">Option 3</SelectItem>
+      <SelectItem value="option4">Option 4</SelectItem>
+    </SelectGroup>
+  </Select>
+);
+Advanced.args = {};

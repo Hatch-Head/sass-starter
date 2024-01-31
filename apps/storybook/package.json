@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "echo 'Add build script here'",
+    "build": "storybook build --output-dir  ../../build/storybook",
     "test": "test-storybook",
     "lint": "echo 'Add lint script here'"
   },

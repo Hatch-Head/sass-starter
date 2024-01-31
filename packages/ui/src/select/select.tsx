@@ -1,3 +1,5 @@
+"use client";
+
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
@@ -6,23 +8,31 @@ import Error from "../error/error";
 import { cn } from "../utils";
 
 const selectStyles = cva(
-  "bg-background ring-offset-background focus:ring-ring data-placeholder:text-gray-500 shadow-xs flex w-full items-center justify-between  text-sm text-gray-900 focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50  px-3  [&>span]:line-clamp-1 focus:ring-4  h-[44px]",
+  "bg-background data-placeholder:text-gray-500 shadow-xs flex w-full items-center justify-between text-sm text-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 px-3 [&>span]:line-clamp-1 h-[44px]",
   {
     variants: {
       asChild: {
         true: "",
-        false: "h-10 border-gray-300 py-2  rounded-md border ",
+        false:
+          "h-10 border-gray-300 py-2 rounded-md border focus:ring-4 data-[state=open]:ring-4",
       },
       error: {
         true: "",
-        false: "focus:border focus:ring-primary-50 focus:border-primary-600 ",
+        false: "",
       },
     },
     compoundVariants: [
       {
         asChild: false,
         error: true,
-        className: "border-error-500 focus:ring-error-50 text-error-500",
+        className:
+          "border-error-500 focus:ring-error-50 text-error-500 data-[state=open]:ring-error-50 data-[state=open]:border-error-600",
+      },
+      {
+        asChild: false,
+        error: false,
+        className:
+          "focus:border active:ring-primary-50 active:border-primary-600 data-[state=open]:ring-primary-50 data-[state=open]:border-primary-600",
       },
     ],
     defaultVariants: {
@@ -33,7 +43,7 @@ const selectStyles = cva(
 
 export interface SelectProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-    VariantProps<typeof selectStyles> {
+    Omit<VariantProps<typeof selectStyles>, "error"> {
   children: React.ReactNode;
   className?: string;
   placeholder?: string;
@@ -41,6 +51,8 @@ export interface SelectProps
   error?: string;
   label?: string;
   description?: string;
+  side?: "left" | "right" | "top" | "bottom";
+  align?: "start" | "center" | "end";
 }
 
 const Select = React.forwardRef<
@@ -56,6 +68,8 @@ const Select = React.forwardRef<
       asChild,
       label,
       children,
+      side,
+      align,
       ...props
     },
     ref,
@@ -73,7 +87,14 @@ const Select = React.forwardRef<
           {...props}
         >
           <SelectPrimitive.Value className="flex-1" placeholder={placeholder} />
-          <SelectContent className="bg-white p-0">{children}</SelectContent>
+          <SelectContent
+            className="bg-white p-0"
+            side={side}
+            align={align}
+            onCloseAutoFocus={(e) => e.preventDefault()}
+          >
+            {children}
+          </SelectContent>
           <SelectPrimitive.Icon asChild>
             <ChevronDown className="ml-1 h-4 w-4 opacity-50" />
           </SelectPrimitive.Icon>
@@ -149,7 +170,7 @@ SelectScrollDownButton.displayName =
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
+>(({ className, children, position = "popper", side, ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}

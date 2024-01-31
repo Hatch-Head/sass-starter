@@ -8,5 +8,4 @@ const config: Config = {
         '../../packages/ui/src/**/*.(js|jsx|mjs|ts|tsx)'],
 };
 
-console.log(config);
 export default config;
