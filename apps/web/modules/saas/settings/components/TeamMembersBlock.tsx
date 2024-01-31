@@ -1,10 +1,9 @@
 "use client";
 
+import { Tabs } from "@acme/ui";
 import { ActionBlock } from "@saas/shared/components";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components";
 import { ApiOutput } from "api";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { TeamInvitationsList } from "./TeamInvitationsList";
 import { TeamMembersList } from "./TeamMembersList";
 
@@ -16,25 +15,16 @@ export function TeamMembersBlock({
   invitations: ApiOutput["team"]["invitations"];
 }) {
   const t = useTranslations();
-  const [activeTab, setActiveTab] = useState("members");
 
   return (
     <ActionBlock title={t("settings.team.members.title")}>
-      <Tabs value={activeTab} onValueChange={(tab) => setActiveTab(tab)}>
-        <TabsList className="mb-4">
-          <TabsTrigger value="members">
-            {t("settings.team.members.activeMembers")}
-          </TabsTrigger>
-          <TabsTrigger value="invitations">
-            {t("settings.team.members.pendingInvitations")}
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="members">
+      <Tabs>
+        <Tabs.Tab label="Active members">
           <TeamMembersList memberships={memberships} />
-        </TabsContent>
-        <TabsContent value="invitations">
+        </Tabs.Tab>
+        <Tabs.Tab label="Pending invitations">
           <TeamInvitationsList invitations={invitations} />
-        </TabsContent>
+        </Tabs.Tab>
       </Tabs>
     </ActionBlock>
   );

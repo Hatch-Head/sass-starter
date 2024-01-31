@@ -33,7 +33,12 @@ const Tabs = ({ children, defaultActiveTab = 0, className }: TabsProps) => {
     <div className="tabs-container">
       <nav className="flex flex-wrap text-center font-medium text-gray-500 dark:text-gray-400">
         {tabs.map((tab: any, index: number) => (
-          <Tab onClick={() => handleTabClick(index)}>{tab.props.label}</Tab>
+          <Tab
+            active={activeTab === index}
+            onClick={() => handleTabClick(index)}
+          >
+            {tab.props.label}
+          </Tab>
         ))}
       </nav>
       <div className={cn("tab-content py-4", className)}>{tabs[activeTab]}</div>

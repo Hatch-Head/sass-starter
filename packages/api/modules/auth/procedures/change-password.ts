@@ -11,8 +11,7 @@ export const changePassword = protectedProcedure
       newPassword: z.string().min(8).max(255),
     }),
   )
-  .mutation(async ({ ctx, input: { currentPassword, newPassword } }) => {
-    const user = ctx.user!
+  .mutation(async ({ ctx: { user }, input: { currentPassword, newPassword } }) => {
     const isValid = await auth.useKey("email", user.email, currentPassword);
 
     if (isValid) {
