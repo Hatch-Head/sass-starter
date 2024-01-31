@@ -36,9 +36,11 @@ export default async function RootLayout({
   }
   const messages = await importLocale(locale);
 
+  // suppressHydrationWarning is required for next-themes warning
+
   return (
-    <html lang={locale}>
-      <body className={`${sansFont.variable}  font-sans`}>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${sansFont.variable} font-sans`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ClientProviders>{children}</ClientProviders>
           <Toaster />

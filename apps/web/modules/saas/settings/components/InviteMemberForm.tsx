@@ -1,10 +1,10 @@
 "use client";
 
+import { Button, Select, SelectItem, TextInput } from "@acme/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUser } from "@saas/auth/hooks";
 import { apiClient } from "@shared/lib";
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -13,13 +13,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
@@ -108,11 +101,16 @@ export function InviteMemberForm({ teamId }: { teamId: string }) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t("settings.team.members.inviteMember.email")}
-                      </FormLabel>
                       <FormControl>
-                        <Input type="email" {...field} />
+                        <TextInput
+                          label={t("settings.team.members.inviteMember.email")}
+                          {...field}
+                          data-1p-ignore
+                          autoCapitalize="none"
+                          autoComplete="none"
+                          inputMode="email"
+                          error={form.formState.errors.email}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -125,27 +123,18 @@ export function InviteMemberForm({ teamId }: { teamId: string }) {
                   name="role"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        {t("settings.team.members.inviteMember.role")}
-                      </FormLabel>
                       <FormControl>
                         <Select
+                          label={t("settings.team.members.inviteMember.role")}
+                          className="w-[120px]"
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {roleOptions.map((option) => (
-                              <SelectItem
-                                key={option.value}
-                                value={option.value}
-                              >
-                                {option.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
+                          {roleOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
                         </Select>
                       </FormControl>
                     </FormItem>

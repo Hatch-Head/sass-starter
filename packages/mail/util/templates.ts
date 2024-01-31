@@ -4,6 +4,7 @@ import { ForgotPassword } from "../emails/ForgotPassword";
 import { MagicLink } from "../emails/MagicLink";
 import { NewUser } from "../emails/NewUser";
 import { NewsletterSignup } from "../emails/NewsletterSignup";
+import { PasswordChange } from "../emails/PasswordChange";
 import { TeamInvitation } from "../emails/TeamInvitation";
 
 export const mailTemplates = {
@@ -13,6 +14,7 @@ export const mailTemplates = {
   newsletterSignup: NewsletterSignup,
   teamInvitation: TeamInvitation,
   emailChange: EmailChange,
+  passwordChange: PasswordChange
 };
 
 export async function getTemplate<

@@ -1,9 +1,9 @@
 "use client";
 
+import { Avatar } from "@acme/ui";
 import { appConfig } from "@config";
 import { DropdownMenuSub } from "@radix-ui/react-dropdown-menu";
 import { useUser } from "@saas/auth/hooks";
-import { UserAvatar } from "@shared/components";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,11 +66,14 @@ export function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="focus-visible:ring-primary rounded-full outline-none focus-visible:ring-2">
-          <UserAvatar name={name ?? ""} avatarUrl={avatar_url} />
+          <Avatar name={name ?? ""} url={avatar_url} />
         </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent
+        align="end"
+        className="w-[240px] bg-white dark:bg-gray-600"
+      >
         <DropdownMenuLabel>
           {name}
           <span className="block text-xs font-normal opacity-70">{email}</span>
@@ -84,7 +87,7 @@ export function UserMenu() {
             <Icon.lightMode className="mr-2 h-4 w-4" /> Color mode
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
-            <DropdownMenuSubContent>
+            <DropdownMenuSubContent className="bg-white">
               <DropdownMenuRadioGroup
                 value={theme}
                 onValueChange={(value) => {

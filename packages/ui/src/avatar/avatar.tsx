@@ -1,3 +1,5 @@
+"use client";
+
 import { cva, VariantProps } from "class-variance-authority";
 import { withTooltip } from "../toolTip/toolTip";
 import { cn } from "../utils";
@@ -28,7 +30,7 @@ export interface AvatarProps
   extends React.HtmlHTMLAttributes<HTMLDivElement>,
     VariantProps<typeof avatar> {
   name?: string;
-  url?: string;
+  url?: string | null | undefined;
   tooltip?: string;
   tooltipTitle?: string;
 }

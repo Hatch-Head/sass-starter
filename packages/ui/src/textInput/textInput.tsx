@@ -11,7 +11,7 @@ import { cn } from "../utils";
 import AddOn from "./addOn";
 
 const containerVariants = cva(
-  "focus-within:outline focus-within:ring-4 disabled-within:bg-error-500 flex w-full rounded-md border items-center outline outline-0 bg-white overflow-hidden ",
+  "focus-within:outline focus-within:ring-4 disabled-within:bg-error-500 flex w-full rounded-md border items-center outline outline-0 bg-white dark:bg-gray-900 overflow-hidden ",
   {
     variants: {
       disabled: {
@@ -21,7 +21,7 @@ const containerVariants = cva(
       error: {
         true: "border-error-500 text-error-500 focus-within:border-error-300 focus-within:ring-error-100",
         false:
-          "text-gray-900 border-gray-300 text-gray-900 focus-within:border-primary-300 focus-within:ring-primary-100",
+          "text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 text-gray-900 focus-within:border-primary-300 focus-within:ring-primary-100 dark:focus-within:border-primary-600 dark:focus-within:ring-primary-900",
       },
       advancedAddon: {
         true: "",
@@ -125,7 +125,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(
           <input
             //mask={mask}
             type="text"
-            className={`flex w-full shrink grow appearance-none border-0 bg-transparent px-4 py-2 ring-0 focus:outline-none active:outline-0 ${inputClassName}`}
+            className={`flex h-[37px] w-full shrink grow appearance-none border-0 bg-transparent px-4 ring-0 focus:outline-none active:outline-0 ${inputClassName}`}
             disabled={disabled}
             {...props}
             ref={ref}

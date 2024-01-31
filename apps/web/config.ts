@@ -1,3 +1,18 @@
+
+const pallet = {
+  "25": "#fcfaff",
+  "50": "#f9f5ff",
+  "100": "#f4ebff",
+  "200": "#e9d7fe",
+  "300": "#d6bbfb",
+  "400": "#b692f6",
+  "500": "#9e77ed",
+  "600": "#7f56d9",
+  "700": "#6941c6",
+  "800": "#53389e",
+  "900": "#42307d"
+}
+
 export const appConfig = {
   i18n: {
     locales: ["en", "de", "es"],
@@ -31,6 +46,6 @@ export const appConfig = {
     ],
   },
   teams: {
-    avatarColors: ["#425693", "#9170b4", "#7e91c9", "#6e90ba"],
+    avatarColors: [pallet[600], pallet[200], pallet[500], pallet[50], pallet[600]],
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
+import { Logo } from "@acme/ui";
 import { UserMenu } from "@marketing/shared/components";
-import { Logo } from "@shared/components";
 import { Icon } from "@ui/components";
 import { ApiOutput } from "api";
 import { Team } from "database";
@@ -10,7 +10,6 @@ import Link from "next-intl/link";
 import { useParams, usePathname } from "next/navigation";
 import { PropsWithChildren, useCallback } from "react";
 import { TeamSelect } from "./TeamSelect";
-
 type User = ApiOutput["auth"]["user"];
 
 export function NavBar({
@@ -28,11 +27,6 @@ export function NavBar({
       icon: Icon.grid,
     },
     {
-      label: t("dashboard.menu.aiDemo"),
-      href: `/${teamSlug}/ai-demo`,
-      icon: Icon.magic,
-    },
-    {
       label: t("dashboard.menu.settings"),
       href: `/${teamSlug}/settings`,
       icon: Icon.settings,
@@ -47,47 +41,27 @@ export function NavBar({
   );
 
   return (
-    <nav className="bg-muted w-full border-b">
-      <div className="container max-w-6xl py-4">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="block">
-              <Logo withLabel={false} />
-            </Link>
+    <nav className="bg-muted w-full  border-gray-300">
+      <div className="border-b border-gray-300 py-2">
+        <div className="container max-w-6xl">
+          <div className="flex flex-wrap items-center justify-between gap-4 ">
+            <div className="flex items-center gap-3 ">
+              <Link href={`/${teamSlug}/dashboard`} className="block">
+                <Logo />
+              </Link>
 
-            <span className="hidden opacity-30 lg:block">
-              <Icon.chevronRight className="h-4 w-4" />
-            </span>
+              <span className="hidden opacity-30 lg:block">
+                <Icon.chevronRight className="h-4 w-4" />
+              </span>
 
-            <TeamSelect teams={teams} />
-          </div>
+              <TeamSelect teams={teams} />
+            </div>
 
-          <div className="ml-auto mr-0 flex items-center justify-end gap-4">
-            <UserMenu />
+            <div className="ml-auto mr-0 flex items-center justify-end gap-4">
+              <UserMenu />
+            </div>
           </div>
         </div>
-
-        <ul className="no-scrollbar -mx-8 -mb-4 mt-6 flex list-none items-center justify-start gap-6 overflow-x-auto px-8 text-sm lg:text-base">
-          {menuItems.map((menuItem) => (
-            <li key={menuItem.href}>
-              <Link
-                href={menuItem.href}
-                className={`flex items-center gap-2 border-b-2 px-1 pb-3 ${
-                  isActiveMenuItem(menuItem.href)
-                    ? "border-primary font-bold"
-                    : "border-transparent"
-                }`}
-              >
-                <menuItem.icon
-                  className={`h-4 w-4 shrink-0 ${
-                    isActiveMenuItem(menuItem.href) ? "text-primary" : ""
-                  }`}
-                />
-                <span>{menuItem.label}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </nav>
   );

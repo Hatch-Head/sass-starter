@@ -1,9 +1,9 @@
 "use client";
 
+import { TextInput } from "@acme/ui";
 import { useUser } from "@saas/auth/hooks";
 import { ActionBlock } from "@saas/shared/components";
 import { apiClient } from "@shared/lib";
-import { Input } from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -43,10 +43,11 @@ export function ChangeTeamNameForm({
       isSubmitting={updateTeamMutation.isLoading}
       isSubmitDisabled={!name || name === initialValue}
     >
-      <Input
+      <TextInput
         className="max-w-sm"
         value={name}
         disabled={teamRole !== "OWNER"}
+        placeholder="Team name"
         onChange={(e) => setName(e.target.value)}
       />
     </ActionBlock>

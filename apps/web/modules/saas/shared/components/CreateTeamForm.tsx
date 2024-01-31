@@ -69,7 +69,11 @@ export function CreateTeamForm({
         <label className="mb-2 block text-sm font-medium">
           {t("createTeam.name")}
         </label>
-        <Input type="text" {...register("name", { required: true })} />
+        <Input
+          type="text"
+          {...register("name", { required: true })}
+          autoComplete="none"
+        />
       </div>
 
       <Button className="mt-4 w-full" type="submit" loading={isSubmitting}>

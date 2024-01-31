@@ -1,6 +1,6 @@
+import { Avatar } from "@acme/ui";
 import { appConfig } from "@config";
 import { SettingsMenu } from "@saas/settings/components";
-import { UserAvatar } from "@shared/components";
 import { createApiCaller } from "api";
 import BoringAvatar from "boring-avatars";
 import { getTranslator } from "next-intl/server";
@@ -48,7 +48,7 @@ export default async function SettingsLayout({
     },
     {
       title: t("settings.menu.account.title"),
-      avatar: <UserAvatar name={user.name ?? ""} avatarUrl={user.avatar_url} />,
+      avatar: <Avatar name={user.name ?? ""} url={user.avatar_url} size="sm" />,
       items: [
         {
           title: t("settings.menu.account.general"),

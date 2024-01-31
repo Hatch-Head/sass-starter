@@ -1,9 +1,9 @@
 "use client";
 
+import { TextInput } from "@acme/ui";
 import { useUser } from "@saas/auth/hooks";
 import { ActionBlock } from "@saas/shared/components";
 import { apiClient } from "@shared/lib";
-import { Input } from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -40,10 +40,10 @@ export function ChangeNameForm({ initialValue }: { initialValue: string }) {
       isSubmitting={changeNameMutation.isLoading}
       isSubmitDisabled={!name || name.length < 3 || name === initialValue}
     >
-      <Input
-        type="text"
+      <TextInput
         className="max-w-sm"
         value={name}
+        data-1p-ignore
         onChange={(e) => setName(e.target.value)}
       />
     </ActionBlock>

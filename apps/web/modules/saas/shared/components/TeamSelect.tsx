@@ -63,7 +63,7 @@ export function TeamSelect({
             <Icon.select className="block h-4 w-4 opacity-50" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-full">
+        <DropdownMenuContent className="w-full bg-white">
           <DropdownMenuRadioGroup
             value={activeTeam.slug}
             onValueChange={switchTeam}

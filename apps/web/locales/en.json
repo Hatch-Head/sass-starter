@@ -166,7 +166,7 @@
       "changePassword": {
         "description": "To change your password, enter the new one below and click save.",
         "note": "Please enter at least 8 characters.",
-        "title": "Your password"
+        "title": "Change password"
       },
       "title": "Account"
     },

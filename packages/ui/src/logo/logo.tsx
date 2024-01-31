@@ -7,7 +7,7 @@ export const Logo = () => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <g filter="url(#filter0_dd_1083_50505)">
-      <g clip-path="url(#clip0_1083_50505)">
+      <g clipPath="url(#clip0_1083_50505)">
         <rect x="3" y="2" width="32" height="32" rx="8" fill="white" />
         <rect
           x="3"
@@ -18,20 +18,20 @@ export const Logo = () => (
           fill="url(#paint0_linear_1083_50505)"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M19 4.03885C11.2895 4.03885 5.03884 10.2895 5.03884 18C5.03884 25.7106 11.2895 31.9612 19 31.9612C26.7105 31.9612 32.9612 25.7106 32.9612 18C32.9612 10.2895 26.7105 4.03885 19 4.03885ZM4.96117 18C4.96117 10.2466 11.2466 3.96118 19 3.96118C26.7534 3.96118 33.0388 10.2466 33.0388 18C33.0388 25.7535 26.7534 32.0389 19 32.0389C11.2466 32.0389 4.96117 25.7535 4.96117 18Z"
           fill="#D0D5DD"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M19 14.0779C16.8338 14.0779 15.0777 15.834 15.0777 18.0002C15.0777 20.1665 16.8338 21.9226 19 21.9226C21.1663 21.9226 22.9223 20.1665 22.9223 18.0002C22.9223 15.834 21.1663 14.0779 19 14.0779ZM15 18.0002C15 15.7911 16.7909 14.0002 19 14.0002C21.2092 14.0002 23 15.7911 23 18.0002C23 20.2094 21.2092 22.0002 19 22.0002C16.7909 22.0002 15 20.2094 15 18.0002Z"
           fill="#D0D5DD"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M19 15.3201C17.5201 15.3201 16.3204 16.5198 16.3204 17.9997C16.3204 19.4796 17.5201 20.6793 19 20.6793C20.4799 20.6793 21.6796 19.4796 21.6796 17.9997C21.6796 16.5198 20.4799 15.3201 19 15.3201ZM16.2427 17.9997C16.2427 16.4769 17.4772 15.2424 19 15.2424C20.5228 15.2424 21.7573 16.4769 21.7573 17.9997C21.7573 19.5225 20.5228 20.757 19 20.757C17.4772 20.757 16.2427 19.5225 16.2427 17.9997Z"
           fill="#D0D5DD"
         />
@@ -67,7 +67,7 @@ export const Logo = () => (
           <path
             d="M3 18H35V21.2C35 25.6804 35 27.9206 34.1281 29.6319C33.3611 31.1372 32.1372 32.3611 30.6319 33.1281C28.9206 34 26.6804 34 22.2 34H15.8C11.3196 34 9.07937 34 7.36808 33.1281C5.86278 32.3611 4.63893 31.1372 3.87195 29.6319C3 27.9206 3 25.6804 3 21.2V18Z"
             fill="white"
-            fill-opacity="0.2"
+            fillOpacity="0.2"
           />
         </g>
       </g>
@@ -78,7 +78,7 @@ export const Logo = () => (
         height="31.7"
         rx="7.85"
         stroke="#D0D5DD"
-        stroke-width="0.3"
+        strokeWidth="0.3"
       />
     </g>
     <defs>
@@ -89,9 +89,9 @@ export const Logo = () => (
         width="38"
         height="38"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -140,9 +140,9 @@ export const Logo = () => (
         width="22"
         height="22"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -191,9 +191,9 @@ export const Logo = () => (
         width="42"
         height="26"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feGaussianBlur in="BackgroundImageFix" stdDeviation="2.5" />
         <feComposite
           in2="SourceAlpha"
@@ -215,8 +215,8 @@ export const Logo = () => (
         y2="34"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="white" />
-        <stop offset="1" stop-color="#D0D5DD" />
+        <stop stopColor="white" />
+        <stop offset="1" stopColor="#D0D5DD" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_1083_50505"
@@ -226,8 +226,8 @@ export const Logo = () => (
         y2="10"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#53389E" />
-        <stop offset="1" stop-color="#6941C6" />
+        <stop stopColor="#53389E" />
+        <stop offset="1" stopColor="#6941C6" />
       </linearGradient>
       <clipPath id="clip0_1083_50505">
         <rect x="3" y="2" width="32" height="32" rx="8" fill="white" />

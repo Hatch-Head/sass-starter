@@ -1,10 +1,4 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@ui/components";
+import { Select, SelectItem } from "@acme/ui";
 import { TeamMemberRole } from "database";
 import { useTranslations } from "next-intl";
 
@@ -32,16 +26,11 @@ export function TeamRoleSelect({
 
   return (
     <Select value={value} disabled={disabled}>
-      <SelectTrigger>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {roleOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
+      {roleOptions.map((option) => (
+        <SelectItem key={option.value} value={option.value}>
+          {option.label}
+        </SelectItem>
+      ))}
     </Select>
   );
 }

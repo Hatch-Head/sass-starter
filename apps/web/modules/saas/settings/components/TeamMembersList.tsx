@@ -27,8 +27,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Avatar } from "@acme/ui";
 import { useUser } from "@saas/auth/hooks";
-import { UserAvatar } from "@shared/components";
 import { apiClient } from "@shared/lib";
 import { useToast } from "@ui/hooks";
 import { useRouter } from "next/navigation";
@@ -59,9 +59,9 @@ export function TeamMembersList({
       cell: ({ row }) =>
         row.original.user ? (
           <div className="flex items-center gap-2">
-            <UserAvatar
+            <Avatar
               name={row.original.user.name ?? row.original.user.email}
-              avatarUrl={row.original.user?.avatar_url}
+              url={row.original.user?.avatar_url}
             />
             <div>
               <strong className="block">{row.original.user.name}</strong>
