@@ -1,4 +1,4 @@
-import { cn } from "@ui/lib";
+import { utils } from "@acme/ui";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
@@ -28,7 +28,7 @@ const Alert = React.forwardRef<
   <div
     ref={ref}
     role="alert"
-    className={cn(alertVariants({ variant }), className)}
+    className={utils.cn(alertVariants({ variant }), className)}
     {...props}
   />
 ));
@@ -40,7 +40,10 @@ const AlertTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h5
     ref={ref}
-    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    className={utils.cn(
+      "mb-1 font-medium leading-none tracking-tight",
+      className,
+    )}
     {...props}
   />
 ));
@@ -52,7 +55,7 @@ const AlertDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    className={utils.cn("text-sm [&_p]:leading-relaxed", className)}
     {...props}
   />
 ));

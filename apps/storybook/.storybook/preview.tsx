@@ -22,7 +22,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ["Introduction", "style-guide", "*"],
+        order: ["Introduction", "style-guide", "components", "*"],
       },
     },
   },

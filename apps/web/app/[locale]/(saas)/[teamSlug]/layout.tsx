@@ -1,9 +1,10 @@
 import { UserContextProvider } from "@saas/auth/lib";
 import { NavBar } from "@saas/shared/components";
+import PaymentIssue from "@saas/shared/components/PaymentIssue";
+import { NotInTeam } from "@shared/components/Error";
 import { createApiCaller } from "api";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
-
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -22,12 +23,34 @@ export default async function Layout({
     (membership) => membership.team.slug === teamSlug,
   );
 
+  // Check user permissions
+  if (!currentTeamMembership) {
+    const teamExists = await apiCaller.team.exists({ slug: teamSlug });
+    if (teamExists) {
+      return <NotInTeam />;
+    } else {
+      return notFound();
+    }
+  }
+
+  // Subscription
+  const subscription = await apiCaller.team.subscription({
+    teamId: currentTeamMembership.team.id,
+  });
+
+  const paymentIssue =
+    subscription?.status === "UNPAID" ||
+    subscription?.status === "PAST_DUE" ||
+    subscription?.status === "INCOMPLETE" ||
+    subscription?.status === "EXPIRED";
+
   return (
     <UserContextProvider
       initialUser={user}
       teamRole={currentTeamMembership?.role}
     >
-      <div className="bg-muted min-h-screen">
+      <div className="flex h-screen w-full flex-col">
+        {paymentIssue && <PaymentIssue />}
         <NavBar
           user={user}
           teams={teamMemberships?.map((membership) => membership.team) ?? []}

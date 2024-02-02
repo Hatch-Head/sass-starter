@@ -35,5 +35,12 @@
     "testid",
     "trpc",
     "ufirst"
-  ]
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.contentlayer": true,
+    "**/.turbo": true,
+    "**/.next": true,
+  }
 }

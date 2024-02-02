@@ -23,7 +23,7 @@ export function NavBar({
   const menuItems = [
     {
       label: t("dashboard.menu.dashboard"),
-      href: `/${teamSlug}/dashboard`,
+      href: `/${teamSlug}`,
       icon: Icon.grid,
     },
     {
@@ -42,11 +42,11 @@ export function NavBar({
 
   return (
     <nav className="bg-muted w-full  border-gray-300">
-      <div className="border-b border-gray-300 py-2">
-        <div className="container max-w-6xl">
+      <div className="border-b border-gray-300 py-1">
+        <div className=" px-2">
           <div className="flex flex-wrap items-center justify-between gap-4 ">
             <div className="flex items-center gap-3 ">
-              <Link href={`/${teamSlug}/dashboard`} className="block">
+              <Link href={`/${teamSlug}`} className="block">
                 <Logo />
               </Link>
 

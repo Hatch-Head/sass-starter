@@ -9,6 +9,8 @@ const PasswordInput = forwardRef<typeof Input, InputProps>(
   ({ ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
+    const buttonClass = "hover:text-primary-600 text-gray-400 h-5 w-5 mr-4";
+
     return (
       <Input
         ref={ref}
@@ -20,10 +22,10 @@ const PasswordInput = forwardRef<typeof Input, InputProps>(
             onMouseDown={(e) => e.preventDefault()} // prevent button from taking focus on click
             onClick={() => setShowPassword(!showPassword)}
           >
-            {!showPassword ? (
-              <EyeIcon className="mr-4 h-5 w-5 text-gray-400" />
+            {showPassword ? (
+              <EyeIcon className={buttonClass} />
             ) : (
-              <EyeOffIcon className="mr-4 h-5 w-5 text-gray-400" />
+              <EyeOffIcon className={buttonClass} />
             )}
           </button>
         }

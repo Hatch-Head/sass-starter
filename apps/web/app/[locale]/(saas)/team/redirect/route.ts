@@ -63,7 +63,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(
         getRedirectUrl({
           teamSlug: team.slug,
-          path: "/dashboard",
+          path: "/",
         }),
       );
     }
@@ -80,7 +80,7 @@ export async function GET(request: Request) {
         return NextResponse.redirect(
           getRedirectUrl({
             teamSlug: teamMembership.team.slug,
-            path: "/dashboard",
+            path: "/",
           }),
         );
       }
@@ -89,7 +89,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(
       getRedirectUrl({
         teamSlug: teamMemberships[0].team.slug,
-        path: "/dashboard",
+        path: "/",
       }),
     );
   } catch (e) {

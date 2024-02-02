@@ -59,7 +59,9 @@ export function TeamSelect({
                 colors={appConfig.teams.avatarColors}
               />
             </span>
-            <span className="block flex-1 truncate">{activeTeam.name}</span>
+            <span className="block flex-1 truncate capitalize">
+              {activeTeam.name}
+            </span>
             <Icon.select className="block h-4 w-4 opacity-50" />
           </div>
         </DropdownMenuTrigger>
@@ -74,7 +76,7 @@ export function TeamSelect({
                 value={team.slug}
                 className="flex items-center justify-center gap-2"
               >
-                <div className="flex flex-1 items-center justify-start gap-2">
+                <div className="flex flex-1 items-center justify-start gap-2 capitalize">
                   <BoringAvatar
                     size={16}
                     name={team.name}

@@ -15,8 +15,6 @@ const meta: Meta<typeof Button> = {
   },
 };
 
-console.log(meta);
-
 export default meta;
 type Story = StoryObj<typeof Button>;
 

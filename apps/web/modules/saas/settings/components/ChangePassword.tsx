@@ -72,18 +72,21 @@ export function ChangePasswordForm() {
         label="Current password"
         className="max-w-sm"
         {...register("currentPassword")}
+        autoComplete="password"
         error={errors.currentPassword?.message as string}
       />
       <PasswordInput
         label="New password"
         className="max-w-sm"
         {...register("newPassword")}
+        autoComplete="none"
         error={errors.newPassword?.message as string}
       />
       <PasswordInput
         label="Confirm password"
         className="max-w-sm"
         {...register("confirmPassword")}
+        autoComplete="none"
         error={errors.confirmPassword?.message as string}
       />
     </ActionBlock>

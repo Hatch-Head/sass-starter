@@ -5,7 +5,12 @@ const config: StorybookConfig = {
     framework: '@storybook/nextjs',
     stories: [
         '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)',
-        '../../../packages/ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)'],
+        // Packages ui
+        '../../../packages/ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)',
+        // Apps web
+        //'../../../apps/web/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)',
+
+    ],
     // Optional
     addons: [
         '@storybook/addon-essentials',
