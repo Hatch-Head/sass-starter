@@ -10,7 +10,7 @@ type User = ApiOutput["auth"]["user"];
 
 type UserContext = {
   user: User;
-  reloadUser: () => Promise<void>;
+  reloadUser: () => Promise<User | undefined>;
   logout: () => Promise<void>;
   loaded: boolean;
   teamRole: TeamMemberRole | null;
@@ -24,7 +24,7 @@ type AuthEvent = {
 
 export const userContext = createContext<UserContext>({
   user: null,
-  reloadUser: () => Promise.resolve(),
+  reloadUser: () => Promise.resolve(undefined),
   logout: () => Promise.resolve(),
   loaded: false,
   teamRole: null,
@@ -49,7 +49,8 @@ export function UserContextProvider({
   const logoutMutation = apiClient.auth.logout.useMutation();
 
   const reloadUser = async () => {
-    await userQuery.refetch();
+    const result = await userQuery.refetch();
+    return result.data;
   };
 
   const logout = async () => {

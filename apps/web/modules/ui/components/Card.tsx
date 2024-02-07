@@ -1,13 +1,26 @@
 import { cn } from "@ui/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
+
+const cardVariants = cva(
+  "bg-card text-card-foreground rounded-lg border   shadow",
+  {
+    variants: {
+      active: {
+        true: "border-primary-600",
+        false: "border-gray-200",
+      },
+    },
+  },
+);
 
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof cardVariants>
+>(({ className, active, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("bg-card text-card-foreground rounded-lg shadow", className)}
+    className={cn(cardVariants({ active }), className)}
     {...props}
   />
 ));
@@ -63,7 +76,10 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn(
+      "mt-3 flex items-center justify-end space-x-3 border-t border-gray-100 p-3",
+      className,
+    )}
     {...props}
   />
 ));

@@ -1,4 +1,5 @@
-import { Link, Text } from "@react-email/components";
+import { Heading, Link, Text } from "@react-email/components";
+import globals from "global-config";
 import PrimaryButton from "./components/PrimaryButton";
 import Wrapper from "./components/Wrapper";
 
@@ -13,22 +14,13 @@ export function NewUser({
 }): JSX.Element {
   return (
     <Wrapper>
-      <Text>
-        Hey {name}, <br /> you requested a login email from supastarter.
-        <br />
-        <br /> You can either enter the one-time password below manually in the
-        application{" "}
-      </Text>
+      <Heading className="text-xl">
+        Welcome to <span className="text-gray-400">{globals.appName}</span>
+      </Heading>
 
-      <Text>
-        One-time password:
-        <br />
-        <strong className="text-2xl font-bold">{otp}</strong>
-      </Text>
+      <Text>Click the link below to activate your account. 🚀</Text>
 
-      <Text>or use this link:</Text>
-
-      <PrimaryButton href={url}>Confirm email &rarr;</PrimaryButton>
+      <PrimaryButton href={url}>Active account &rarr;</PrimaryButton>
 
       <Text className="text-muted-foreground text-sm">
         If you want to open the link in a different browser than your default
@@ -40,8 +32,8 @@ export function NewUser({
 }
 
 NewUser.subjects = {
-  en: "Welcome to supastarter!",
-  de: "Willkommen bei supastarter!",
+  en: "Welcome to ACME!",
+  de: "Willkommen bei ACME!",
 };
 
 export default NewUser;

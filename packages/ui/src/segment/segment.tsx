@@ -1,7 +1,7 @@
 "use client";
 
 import { cva } from "class-variance-authority";
-import React, { Children, HTMLAttributes, useState } from "react";
+import React, { Children, HTMLAttributes, useEffect, useState } from "react";
 import { ButtonDefaultAsType, ButtonProps, cn } from "../utils";
 
 const segmentStyle = cva(
@@ -26,8 +26,6 @@ export const SegmentContent = ({ children, active = false }: TabProps) => (
   <div className={`tab-item ${active ? "active" : ""}`}>{children}</div>
 );
 SegmentContent.displayName = "SegmentContent";
-
-const defaultElement = "button";
 
 export const SegmentButton = <
   E extends React.ElementType = ButtonDefaultAsType,
@@ -63,13 +61,38 @@ const Segment = ({
   contentClass = "",
   className,
   segmentWidth = 600,
+  id,
 }: SegmentProps) => {
+  const getInitialTab = () => {
+    if (id && typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const param = searchParams.get(id);
+      if (param && parseInt(param)) {
+        return parseInt(param);
+      }
+    }
+    return defaultActiveTab;
+  };
+
   const tabs = Children.toArray(children);
-  const [activeTab, setActiveTab] = useState<number>(defaultActiveTab);
+  const [activeTab, setActiveTab] = useState<number>(getInitialTab());
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
+
+  // Update search params on change
+  useEffect(() => {
+    if (id && typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set(id, activeTab.toString());
+      window.history.pushState(
+        {},
+        "",
+        `${window.location.pathname}?${searchParams}`,
+      );
+    }
+  }, [window, id, activeTab]);
 
   const segmentClassMap = {
     left: "justify-start",
@@ -78,9 +101,9 @@ const Segment = ({
   };
 
   return (
-    <div className={cn("min-w-sm w-full overflow-hidden", className)}>
+    <div className={cn("min-w-sm w-full overflow-visible", className)}>
       <div
-        className={`relative flex w-full overflow-hidden ${segmentClassMap[segmentAlign]}`}
+        className={`relative flex w-full overflow-visible ${segmentClassMap[segmentAlign]}`}
       >
         <div
           className={cn(

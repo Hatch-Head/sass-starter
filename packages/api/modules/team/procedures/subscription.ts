@@ -16,6 +16,9 @@ export const subscription = protectedProcedure
       where: {
         team_id: teamId,
       },
+      orderBy: {
+        created_at: "desc",
+      }
     });
 
     return subscription;

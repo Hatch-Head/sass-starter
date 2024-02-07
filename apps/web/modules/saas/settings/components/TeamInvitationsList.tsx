@@ -67,6 +67,7 @@ export function TeamInvitationsList({
               value={row.original.role}
               disabled
               onSelect={() => {}}
+              key={row.id}
             />
 
             {teamRole === "OWNER" && (

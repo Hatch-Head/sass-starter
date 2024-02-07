@@ -1,7 +1,8 @@
 "use client";
 
+import { Button } from "@acme/ui";
 import { apiClient } from "@shared/lib";
-import { Button, Icon } from "@ui/components";
+import { Icon } from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
 
@@ -37,11 +38,11 @@ export function CustomerPortalButton({
 
   return (
     <Button
-      variant="default"
+      variant="outline"
+      leftIcon={<Icon.creditCard className="mr-2 h-4 w-4" />}
       onClick={() => createCustomerPortal()}
       loading={createCustomerPortalMutation.isLoading}
     >
-      <Icon.creditCard className="mr-2 h-4 w-4" />
       {t("settings.billing.createCustomerPortal.label")}
     </Button>
   );

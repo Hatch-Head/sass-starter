@@ -57,7 +57,7 @@ export function CreateTeamForm({
       onSuccess(newTeam);
     } catch (e) {
       toast({
-        title: t("createTeam.notifications.error"),
+        title: e.message || t("createTeam.notifications.error"),
         variant: "error",
       });
     }

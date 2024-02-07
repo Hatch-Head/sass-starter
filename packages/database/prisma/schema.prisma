@@ -84,7 +84,7 @@ model Team {
   name         String
   slug         String           @unique
   memberships  TeamMembership[]
-  subscription Subscription?
+  subscription Subscription[]
   invitations  TeamInvitation[]
 }
 
@@ -131,10 +131,13 @@ enum SubscriptionStatus {
 model Subscription {
   id                String             @id
   team              Team               @relation(fields: [team_id], references: [id])
-  team_id           String             @unique
+  team_id           String
   customer_id       String
   status            SubscriptionStatus
   plan_id           String
   variant_id        String
   next_payment_date DateTime?
+
+  created_at DateTime @default(now()) @db.Timestamptz(3)
+  updated_at DateTime @updatedAt @db.Timestamptz(3)
 }

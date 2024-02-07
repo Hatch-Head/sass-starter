@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@ui/components";
+import { Button } from "@acme/ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

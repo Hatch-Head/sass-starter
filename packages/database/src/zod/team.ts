@@ -9,7 +9,7 @@ export const TeamModel = z.object({
 
 export interface CompleteTeam extends z.infer<typeof TeamModel> {
   memberships: CompleteTeamMembership[]
-  subscription?: CompleteSubscription | null
+  subscription: CompleteSubscription[]
   invitations: CompleteTeamInvitation[]
 }
 
@@ -20,6 +20,6 @@ export interface CompleteTeam extends z.infer<typeof TeamModel> {
  */
 export const RelatedTeamModel: z.ZodSchema<CompleteTeam> = z.lazy(() => TeamModel.extend({
   memberships: RelatedTeamMembershipModel.array(),
-  subscription: RelatedSubscriptionModel.nullish(),
+  subscription: RelatedSubscriptionModel.array(),
   invitations: RelatedTeamInvitationModel.array(),
 }))

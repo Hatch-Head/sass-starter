@@ -38,11 +38,14 @@
     "superjson": "^1.13.3",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
+    "url-slug": "^4.0.1",
     "usehooks-ts": "^2.9.1",
     "utils": "workspace:*",
     "zod": "^3.22.2"
   },
-  "devDependencies":{ 
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.0",
+    "@playwright/test": "^1.41.2",
     "@types/cookie": "^0.5.2",
     "@types/js-cookie": "^3.0.4",
     "@types/node": "20.5.9",
@@ -69,7 +72,8 @@
     "dev": "next dev --port 3000",
     "lint": "next lint",
     "start": "next start",
-    "storybook": "dotenv -c -e ../../.env -- storybook dev -p 6006"
+    "storybook": "dotenv -c -e ../../.env -- storybook dev -p 6006",
+    "e2e": "playwright test"
   },
   "version": "0.1.0"
 }

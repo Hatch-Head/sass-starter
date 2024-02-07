@@ -1,9 +1,15 @@
 "use client";
 
-import { PasswordInput } from "@acme/ui";
+import { Button, PasswordInput } from "@acme/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionBlock } from "@saas/shared/components";
 import { apiClient } from "@shared/lib";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -40,55 +46,74 @@ export function ChangePasswordForm() {
     resolver: zodResolver(schema),
   });
 
-  const changePasswordMutation = apiClient.auth.changePassword.useMutation({
-    onSuccess: () => {
-      toast({
-        title: t("settings.notifications.passwordUpdated"),
-      });
-      reset();
-      router.refresh();
-    },
-    onError: (error) => {
-      toast({
-        title: error.message,
-      });
-    },
-  });
+  const { mutate: changePasswordMutation, isLoading } =
+    apiClient.auth.changePassword.useMutation({
+      onSuccess: () => {
+        toast({
+          title: t("settings.notifications.passwordUpdated"),
+          variant: "success",
+        });
+        reset();
+        router.refresh();
+      },
+      onError: (error) => {
+        toast({
+          title: error.message,
+          variant: "error",
+        });
+      },
+    });
 
-  const onHandleSubmit = (data) =>
-    changePasswordMutation.mutate({
+  const onSubmit = (data) =>
+    changePasswordMutation({
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
     });
 
   return (
-    <ActionBlock
-      title={t("settings.account.changePassword.title")}
-      onSubmit={handleSubmit(onHandleSubmit)}
-      isSubmitting={changePasswordMutation.isLoading}
-      //isSubmitDisabled={!password || password.length < 8}
-    >
-      <PasswordInput
-        label="Current password"
-        className="max-w-sm"
-        {...register("currentPassword")}
-        autoComplete="password"
-        error={errors.currentPassword?.message as string}
-      />
-      <PasswordInput
-        label="New password"
-        className="max-w-sm"
-        {...register("newPassword")}
-        autoComplete="none"
-        error={errors.newPassword?.message as string}
-      />
-      <PasswordInput
-        label="Confirm password"
-        className="max-w-sm"
-        {...register("confirmPassword")}
-        autoComplete="none"
-        error={errors.confirmPassword?.message as string}
-      />
-    </ActionBlock>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("settings.account.changePassword.title")}</CardTitle>
+        </CardHeader>
+
+        <CardContent>
+          <PasswordInput
+            label="Current password"
+            className="max-w-sm"
+            {...register("currentPassword")}
+            autoComplete="password"
+            data-testid="input-current-password"
+            error={errors.currentPassword?.message as string}
+          />
+          <PasswordInput
+            label="New password"
+            className="max-w-sm"
+            {...register("newPassword")}
+            autoComplete="none"
+            data-testid="input-new-password"
+            error={errors.newPassword?.message as string}
+          />
+          <PasswordInput
+            label="Confirm password"
+            className="max-w-sm"
+            {...register("confirmPassword")}
+            autoComplete="none"
+            data-testid="input-confirm-password"
+            error={errors.confirmPassword?.message as string}
+          />
+        </CardContent>
+
+        <CardFooter>
+          <Button
+            type="submit"
+            data-testid="button-password-save"
+            loading={isLoading}
+          >
+            Save
+          </Button>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

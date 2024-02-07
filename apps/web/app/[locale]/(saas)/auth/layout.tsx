@@ -7,9 +7,9 @@ import { useLocale } from "next-intl";
 import Link from "next-intl/link";
 import { PropsWithChildren } from "react";
 
-export default function AuthLayout({ children }: PropsWithChildren<{}>) {
+export default async function AuthLayout({ children }: PropsWithChildren<{}>) {
   const locale = useLocale();
-
+  //await isAuthedGuard("/");
   return (
     <UserContextProvider initialUser={null}>
       <div className=" text-foreground flex min-h-screen place-items-center">

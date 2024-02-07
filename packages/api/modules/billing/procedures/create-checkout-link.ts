@@ -12,7 +12,6 @@ export const createCheckoutLink = protectedProcedure
       redirectUrl: z.string().optional(),
     }),
   )
-  .output(z.string())
   .mutation(
     async ({
       input: { planId, variantId, redirectUrl, teamId },

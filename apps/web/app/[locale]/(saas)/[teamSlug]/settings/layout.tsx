@@ -54,6 +54,10 @@ export default async function SettingsLayout({
           title: t("settings.menu.account.general"),
           href: `/${teamSlug}/settings/account/general`,
         },
+        {
+          title: t("settings.menu.account.password"),
+          href: `/${teamSlug}/settings/account/password`,
+        },
       ],
     },
   ];

@@ -1,7 +1,8 @@
 "use client";
 
+import { Button } from "@acme/ui";
 import { apiClient } from "@shared/lib";
-import { Button, Icon } from "@ui/components";
+import { Icon } from "@ui/components";
 import { useToast } from "@ui/hooks";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -48,8 +49,8 @@ export function CancelSubscriptionButton({
       variant="outline"
       onClick={() => cancelSubscription()}
       loading={cancelSubscriptionMutation.isLoading}
+      leftIcon={<Icon.close className="h-4 w-4" />}
     >
-      <Icon.close className="mr-2 h-4 w-4" />
       {label}
     </Button>
   );

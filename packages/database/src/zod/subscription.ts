@@ -10,6 +10,8 @@ export const SubscriptionModel = z.object({
   plan_id: z.string(),
   variant_id: z.string(),
   next_payment_date: z.date().nullish(),
+  created_at: z.date(),
+  updated_at: z.date(),
 })
 
 export interface CompleteSubscription extends z.infer<typeof SubscriptionModel> {

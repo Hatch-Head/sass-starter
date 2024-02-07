@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 const Page = async () => {
   const { teamMemberships } = await notAuthedGuard();
 
-  if (teamMemberships === null) {
+  if (teamMemberships === null || teamMemberships.length === 0) {
     return redirect("/onboarding");
   }
   if (teamMemberships.length === 1) {
@@ -18,6 +18,7 @@ const Page = async () => {
       <div className="flex w-full max-w-sm flex-col">
         <h1 className="mb-2">Select a team</h1>
         <div className="rounded-lg border border-gray-300">
+          {JSON.stringify(teamMemberships)}
           {teamMemberships.map((membership) => (
             <Link
               key={membership.id}

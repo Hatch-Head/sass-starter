@@ -65,7 +65,10 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="focus-visible:ring-primary rounded-full outline-none focus-visible:ring-2">
+        <button
+          className="focus-visible:ring-primary rounded-full outline-none focus-visible:ring-2"
+          data-testid="user-menu"
+        >
           <Avatar name={name ?? ""} url={avatar_url} />
         </button>
       </DropdownMenuTrigger>

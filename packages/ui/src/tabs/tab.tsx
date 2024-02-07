@@ -27,12 +27,17 @@ export const Tab = <E extends React.ElementType = ButtonDefaultAsType>({
   as,
   active,
   className,
+  label,
   ...otherProps
 }: ButtonProps<E>) => {
   const Tag = as || ButtonDefaultAsType;
 
   return (
-    <Tag className={cn(tabStyles({ active }), className)} {...otherProps}>
+    <Tag
+      key={label}
+      className={cn(tabStyles({ active }), className)}
+      {...otherProps}
+    >
       {children}
     </Tag>
   );

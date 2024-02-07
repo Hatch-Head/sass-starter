@@ -9,6 +9,7 @@
     "openai": "^4.14.0",
     "slugify": "^1.6.6",
     "superjson": "^1.13.3",
+    "url-slug": "^4.0.1",
     "utils": "workspace:*",
     "zod": "^3.22.2"
   },

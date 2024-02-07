@@ -225,7 +225,7 @@
         }
       },
       "createCustomerPortal": {
-        "label": "Manage billing details",
+        "label": "Manage subscription",
         "notifications": {
           "error": {
             "title": "Could not create a customer portal session. Please try again."
@@ -332,7 +332,8 @@
       },
       "account": {
         "title": "Account",
-        "general": "General"
+        "general": "General",
+        "password": "Password"
       }
     }
   }

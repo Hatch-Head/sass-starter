@@ -1,24 +1,34 @@
-import { TEAM_SLUG_COOKIE_NAME } from "@saas/shared/types";
 import { createApiCaller } from "api";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+/**
+ * Guard to ensure the user is authenticated
+ * @returns
+ */
 export const isAuthedGuard = async (path: string, withTeamPrefix = true) => {
   const apiCaller = await createApiCaller();
   const user = await apiCaller.auth.user();
-  const teamSlug = cookies().get(TEAM_SLUG_COOKIE_NAME)?.value;
+  const memberships = user?.teamMemberships || [];
+  const teamSlug =
+    user?.teamMemberships?.length > 0
+      ? user.teamMemberships[0].team.slug
+      : null;
 
-  const redirectPath = withTeamPrefix ? `/${teamSlug}${path}` : path;
+  const redirectPath =
+    withTeamPrefix && teamSlug ? `/${teamSlug}${path}` : path;
 
   if (user) {
     redirect(redirectPath);
   }
 };
 
+/**
+ * Guard to ensure the user is authenticated
+ * @returns
+ */
 export const notAuthedGuard = async () => {
   const apiCaller = await createApiCaller();
   const user = await apiCaller.auth.user();
-
   if (!user) {
     return redirect("/auth/login");
   }

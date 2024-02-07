@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { TeamModel, db } from "database";
-import slugify from "slugify";
+import slugify from "url-slug";
 import { z } from "zod";
 import { protectedProcedure } from "../../trpc";
 
@@ -13,11 +13,8 @@ export const create = protectedProcedure
   )
   .output(TeamModel)
   .mutation(async ({ input: { name, slug }, ctx: { user } }) => {
-    const sanitizedSlug = slugify(slug || name, {
-      lower: true,
-      remove: /[*+~.()'"!:@]/g,
-      replacement: "-",
-      trim: true,
+    const sanitizedSlug = slugify(slug || name || '', {
+      separator: "-",
     });
 
     if (!sanitizedSlug)
