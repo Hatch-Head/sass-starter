@@ -1,5 +1,5 @@
-<img src="./supastarter-logo-light.svg#gh-light-mode-only" alt="supastarter" width="300px" />
-<img src="./supastarter-logo-dark.svg#gh-dark-mode-only" alt="supastarter" width="300px" />
+<img src="./docs/assets/supastarter-logo-light.svg#gh-light-mode-only" alt="supastarter" width="300px" />
+<img src="./docs/assets/supastarter-logo-dark.svg#gh-dark-mode-only" alt="supastarter" width="300px" />
 
 # SASS Starter
 
@@ -17,4 +17,4 @@ The goal of it is to provide a scalable and production-ready template that can b
 
 ## Documentation
 
-Read [getting started](/docs/getting-started.md)
+Read [getting started](./docs/getting-started.md)
