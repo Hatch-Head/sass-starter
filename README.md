@@ -1,7 +1,7 @@
 <img src="./docs/assets/supastarter-logo-light.svg#gh-light-mode-only" alt="supastarter" width="300px" />
 <img src="./docs/assets/supastarter-logo-dark.svg#gh-dark-mode-only" alt="supastarter" width="300px" />
 
-[Clone into new repo](https://github.com/new?owner=Hatch-Head&template_name=sass-starter&template_owner=Hatch-Head)
+[<img width="143px" src="./docs/assets/button-use-this-template.png" />](https://github.com/new?owner=Hatch-Head&template_name=sass-starter&template_owner=Hatch-Head)
 
 # SASS Starter
 

@@ -62,7 +62,7 @@ export async function POST(req: Request) {
 
     console.log("STRIPE DATA", data);
 
-    const result = await apiCaller.billing.syncSubscription({
+    await apiCaller.billing.syncSubscription({
       id: String(data.id),
       team_id: data.metadata?.team_id,
       customer_id: String(data.customer),
@@ -73,7 +73,6 @@ export async function POST(req: Request) {
         (data.trial_end ?? data.current_period_end ?? 0) * 1000,
       ),
     });
-    console.log("STRIPE RESULT")
   } catch (error: unknown) {
     console.error("STRIPE ERROR", error);
     return new Response(

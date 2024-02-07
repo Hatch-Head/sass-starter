@@ -6,6 +6,7 @@ import { NextIntlClientProvider, useLocale } from "next-intl";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../../styles/globals.css";
+import { Analytics } from "../libs/analytics";
 
 export const metadata: Metadata = {
   title: {
@@ -42,7 +43,10 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={`${sansFont.variable} font-sans`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ClientProviders>{children}</ClientProviders>
+          <ClientProviders>
+            <Analytics />
+            {children}
+          </ClientProviders>
           <Toaster />
         </NextIntlClientProvider>
       </body>
