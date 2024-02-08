@@ -3,7 +3,7 @@
 import { apiClient } from "@shared/lib";
 import { ApiOutput } from "api";
 import { TeamMemberRole } from "database";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 
 type User = ApiOutput["auth"]["user"];
@@ -11,9 +11,9 @@ type User = ApiOutput["auth"]["user"];
 type UserContext = {
   user: User;
   reloadUser: () => Promise<User | undefined>;
+  getRole: (slug?: string) => TeamMemberRole | undefined;
   logout: () => Promise<void>;
   loaded: boolean;
-  teamRole: TeamMemberRole | null;
 };
 
 const authBroadcastChannel = new BroadcastChannel("auth");
@@ -27,7 +27,7 @@ export const userContext = createContext<UserContext>({
   reloadUser: () => Promise.resolve(undefined),
   logout: () => Promise.resolve(),
   loaded: false,
-  teamRole: null,
+  getRole: (slug?: string) => undefined,
 });
 
 export function UserContextProvider({
@@ -39,6 +39,7 @@ export function UserContextProvider({
   teamRole?: TeamMemberRole;
 }>) {
   const router = useRouter();
+  const params = useParams();
   const [loaded, setLoaded] = useState(!!initialUser);
   const [user, setUser] = useState<User>(initialUser);
   const userQuery = apiClient.auth.user.useQuery(undefined, {
@@ -99,10 +100,19 @@ export function UserContextProvider({
       authBroadcastChannel.removeEventListener("message", handleAuthEvent);
   }, [user]);
 
+  const getRole = (slug?: string) => {
+    const teamSlug = slug ?? params.teamSlug;
+    if (!user || !teamSlug) return undefined;
+    if (user.teamMemberships) {
+      const membership = user.teamMemberships.find(
+        (membership) => membership.team.slug === teamSlug,
+      );
+      return membership?.role ? membership?.role : undefined;
+    }
+  };
+
   return (
-    <userContext.Provider
-      value={{ user, reloadUser, logout, loaded, teamRole: teamRole ?? null }}
-    >
+    <userContext.Provider value={{ user, reloadUser, logout, loaded, getRole }}>
       {children}
     </userContext.Provider>
   );

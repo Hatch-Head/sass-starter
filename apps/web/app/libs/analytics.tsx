@@ -7,39 +7,53 @@ import { useEffect } from "react";
 type UserIdentifier = {
   id: string;
   name?: string | null | undefined;
+  email?: string | null | undefined;
 };
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
 export const AnalyticsInit = () => {
-  console.log("start analytics", process.env.NEXT_PUBLIC_MIXPANEL_API_KEY);
-  mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_API_KEY, {
-    debug: true,
-    track_pageview: true,
-    persistence: "localStorage",
-  });
-  console.log("setup events");
-  mixpanel.track_pageview();
+  if (IS_PROD) {
+    mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_API_KEY, {
+      debug: true,
+      track_pageview: true,
+      persistence: "localStorage",
+    });
+    mixpanel.track_pageview();
+  } else {
+    console.log("ANALYTICS_INIT", process.env.NEXT_PUBLIC_MIXPANEL_API_KEY);
+  }
 };
 
 export const AnalyticsTrackEvent = <T extends any>(
   event: Uppercase<string>,
   properties: T,
 ) => {
-  mixpanel.track(event, properties);
+  if (IS_PROD) {
+    mixpanel.track(event, properties);
+  } else {
+    console.log("ANALYTICS_TRACK_EVENT:", event, properties);
+  }
 };
 
 export const AnalyticsIdentifyUser = (user: UserIdentifier) => {
-  console.log("identify user", user);
-  mixpanel.identify(user.id);
-  mixpanel.people.set({
-    name: user.name || "UNNAMED_USER",
-  });
+  if (IS_PROD) {
+    mixpanel.identify(user.id);
+    mixpanel.people.set({
+      name: user.name || "UNNAMED_USER",
+      email: user.email,
+    });
+  } else {
+    console.log("ANALYTICS_IDENTIFY_USER:", user);
+  }
 };
 
 export const AnalyticsClearUser = () => {
-  console.log("clear user");
-  mixpanel.reset();
+  if (IS_PROD) {
+    mixpanel.reset();
+  } else {
+    console.log("ANALYTICS_CLEAR_USER");
+  }
 };
 
 /**
@@ -47,21 +61,20 @@ export const AnalyticsClearUser = () => {
  * @returns
  */
 export const Analytics = () => {
-  console.log("ANAYLTICS COMPONENT");
   const user = useUser();
   useEffect(() => {
-    if (!IS_PROD) {
+    if (IS_PROD) {
       AnalyticsInit();
     } else {
       console.warn("Analytics is disabled in development mode");
     }
   }, []);
 
+  /**
+   * Handle logout
+   */
   useEffect(() => {
-    console.log("Effect", user);
-    if (user?.user) {
-      AnalyticsIdentifyUser(user.user);
-    } else {
+    if (user.loaded && !user?.user) {
       AnalyticsClearUser();
     }
   }, [user]);

@@ -1,13 +1,14 @@
 import { importLocale } from "@i18n";
+import { UserContextProvider } from "@saas/auth/lib";
 import { ClientProviders } from "@shared/components";
 import { Toaster } from "@ui/components";
+import { createApiCaller } from "api";
 import { Metadata } from "next";
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../../styles/globals.css";
 import { Analytics } from "../libs/analytics";
-
 export const metadata: Metadata = {
   title: {
     absolute: "supastarter.nextjs - Application",
@@ -37,14 +38,19 @@ export default async function RootLayout({
   }
   const messages = await importLocale(locale);
 
-  // suppressHydrationWarning is required for next-themes warning
+  const apiCaller = await createApiCaller();
+  const user = await apiCaller.auth.user();
 
+  // suppressHydrationWarning is required for next-themes warning
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${sansFont.variable} font-sans`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ClientProviders>
-            <Analytics />
+            <UserContextProvider user={user}>
+              <Analytics />
+            </UserContextProvider>
+
             {children}
           </ClientProviders>
           <Toaster />
