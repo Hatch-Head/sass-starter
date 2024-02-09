@@ -5,18 +5,22 @@ import Wrapper from "./components/Wrapper";
 
 export function TeamInvitation({
   url,
+  invitedBy,
   teamName,
 }: {
   url: string;
+  invitedBy: string;
   teamName: string;
 }): JSX.Element {
   return (
     <Wrapper>
       <Heading className="text-xl">
-        Join the team <strong>{teamName}</strong> on{" "}
-        <span className="text-gray-400">{globals.appName}</span>
+        Join the <strong>{teamName}</strong> team
       </Heading>
-      <Text>You have been invited to join the team {teamName}.</Text>
+      <Text>
+        {invitedBy} as invited to join the team <strong>{teamName}</strong> on{" "}
+        {globals.appName}.
+      </Text>
 
       <Text>
         Click the button below or copy and paste the link into your browser of
@@ -35,6 +39,7 @@ export function TeamInvitation({
 
 TeamInvitation.subjects = {
   en: "You have been invited to join a team",
+  // cspell:disable-next-line
   de: "Du wurdest eingeladen, einem Team beizutreten",
 };
 

@@ -1,0 +1,18 @@
+{
+  "name": "mail-capture",
+  "version": "1.0.0",
+  "description": "A local mail capture server for development and testing",
+  "main": "main.ts",
+  "scripts": {
+    "dev": "ts-node main.ts",
+    "test": "ts-node main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/maildev": "^0.0.7",
+    "maildev": "^2.1.0",
+    "ts-node": "^10.9.2"
+  }
+}
