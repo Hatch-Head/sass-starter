@@ -10,7 +10,7 @@ type ErrorProps = {
   message: string;
 };
 
-const Error = ({ statusCode, title, message }: ErrorProps) => {
+export const Error = ({ statusCode, title, message }: ErrorProps) => {
   const router = useRouter();
   return (
     <section className="bg-white dark:bg-gray-900 ">

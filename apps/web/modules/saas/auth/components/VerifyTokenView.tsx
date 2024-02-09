@@ -1,10 +1,11 @@
 "use client";
 
 import { apiClient } from "@shared/lib";
-import { Button, Icon } from "@ui/components";
+import { Icon } from "@ui/components";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Error } from "../../../shared/components/Error";
 import { useUser } from "../hooks";
 
 export function VerifyTokenView() {
@@ -12,6 +13,7 @@ export function VerifyTokenView() {
   const [loading, setLoading] = useState(true);
   const [tokenVerified, setTokenVerified] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { reloadUser } = useUser();
 
   const token = searchParams.get("token") || "";
@@ -44,22 +46,13 @@ export function VerifyTokenView() {
     );
 
   // TODO: Add texts for invalid token
+  if (!tokenVerified) {
+    return (
+      <Error title="Invalid token" message="The token is invalid" code={400} />
+    );
+  } else {
+    router.push("/");
+  }
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold">
-        {tokenVerified
-          ? t("auth.confirmation.title")
-          : t("auth.invalidToken.title")}
-      </h1>
-      <p className="text-muted-foreground mb-4 mt-2">
-        {tokenVerified
-          ? t("auth.confirmation.message")
-          : t("auth.invalidToken.message")}
-      </p>
-      <Button className="w-full" onClick={() => window.close()}>
-        {t("auth.confirmation.close")}
-      </Button>
-    </div>
-  );
+  return null;
 }

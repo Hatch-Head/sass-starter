@@ -46,7 +46,7 @@ export function SignupForm() {
 
   const signupMutation = apiClient.auth.signup.useMutation();
 
-  const invitationCode = searchParams.get("invitationCode");
+  const invitationCode = searchParams.get("invitationCode") || undefined;
   const redirectTo = invitationCode
     ? `/team/invitation?code=${invitationCode}`
     : `/team/redirect?redirectTo=${encodeURIComponent(
@@ -69,6 +69,7 @@ export function SignupForm() {
         email,
         password,
         name,
+        invitationCode,
         callbackUrl: new URL("/auth/verify", window.location.origin).toString(),
       });
 

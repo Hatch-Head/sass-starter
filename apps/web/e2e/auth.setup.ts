@@ -11,9 +11,9 @@ setup('authenticate', async ({ browser }) => {
     await page.getByRole('tab', { name: 'Password' }).click();
 
     await page.locator('input[name="email"]').click();
-    await page.locator('input[name="email"]').fill(process.env.E2E_TEST_EMAIL || 'andrew@hatchhead.co');
+    await page.locator('input[name="email"]').fill('andrew@hatchhead.co');
     await page.locator('input[name="password"]').click();
-    await page.locator('input[name="password"]').fill(process.env.E2E_TEST_EMAIL || 'password2');
+    await page.locator('input[name="password"]').fill('password');
 
     await page.getByRole('button', { name: 'Sign in' }).click();
 

@@ -20,7 +20,9 @@ export function NewUser({
 
       <Text>Click the link below to activate your account. 🚀</Text>
 
-      <PrimaryButton href={url}>Active account &rarr;</PrimaryButton>
+      <PrimaryButton data-testid="button-activate" href={url}>
+        Active account &rarr;
+      </PrimaryButton>
 
       <Text className="text-muted-foreground text-sm">
         If you want to open the link in a different browser than your default
