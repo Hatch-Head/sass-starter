@@ -24,4 +24,16 @@ test.skip('Authenticated users redirects', () => {
         await page.getByRole('menuitem', { name: 'Logout' }).click();
         await expect(page).not.toHaveURL('/auth/login');
     })
+
+
 })
+
+
+test.skip('Unauthorized users redirects', () => {
+    test('Unauthorized users can\'t onboard', async ({ page }) => {
+        await page.goto('/onboarding');
+        await page.waitForURL("/onboarding")
+        await expect(page).not.toHaveURL('/auth/login');
+    });
+});
+

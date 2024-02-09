@@ -48,7 +48,11 @@ export function VerifyTokenView() {
   // TODO: Add texts for invalid token
   if (!tokenVerified) {
     return (
-      <Error title="Invalid token" message="The token is invalid" code={400} />
+      <Error
+        title="Invalid token"
+        message="The token is invalid"
+        statusCode={400}
+      />
     );
   } else {
     router.push("/");

@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     teamSlug?: string;
     path: string;
   }) => {
+    return NextResponse.redirect('/');
     let redirectPath = redirectTo ?? path;
     if (teamSlug) redirectPath = join(teamSlug, redirectPath);
     return new URL(redirectPath, requestUrl.origin).toString();

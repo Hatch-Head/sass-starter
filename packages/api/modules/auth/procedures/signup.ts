@@ -53,6 +53,7 @@ export const signup = publicProcedure
         const requireVerification = invitation === null || invitation.email !== email;
 
         if (requireVerification) {
+
           const user = await auth.createUser({
             key: {
               providerId: "email",
@@ -93,7 +94,7 @@ export const signup = publicProcedure
             templateId: "newUser",
             to: email,
             context: {
-              url: url.toString(),
+              url: url.toString().replace("127.0.0.1", "localhost"),
               otp,
               name: user.name ?? user.email,
             },

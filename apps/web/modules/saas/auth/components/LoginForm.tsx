@@ -58,9 +58,7 @@ export function LoginForm() {
   const invitationCode = searchParams.get("invitationCode");
   const redirectTo = invitationCode
     ? `/team/invitation?code=${invitationCode}`
-    : `/team/redirect?redirectTo=${encodeURIComponent(
-        searchParams.get("redirectTo") ?? "",
-      )}`;
+    : `/`;
   const email = searchParams.get("email");
 
   useEffect(() => {

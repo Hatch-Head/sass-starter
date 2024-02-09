@@ -1,1 +1,1 @@
-export const userAuthFile = '__tests__/e2e/.auth/.auth/user.json';
+export const userAuthFile = 'e2e/.auth/user.json';

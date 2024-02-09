@@ -18,9 +18,10 @@ setup('authenticate', async ({ browser }) => {
     await page.getByRole('button', { name: 'Sign in' }).click();
 
     // Return to app
-    await page.waitForURL('http://localhost:3000/hatch-head');
+    await page.waitForURL('/hatch-head');
 
     // End of authentication steps.
     await page.context().storageState({ path: userAuthFile });
 
+    await page.close();
 });

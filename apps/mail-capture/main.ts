@@ -10,5 +10,5 @@ maildev.listen();
 
 maildev.on("new", function (email: any) {
     // We got a new email!
-    console.log("NEW MAIL", email)
+    console.log("NEW MAIL", email.to[0].address);
 });
