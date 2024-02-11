@@ -5,6 +5,7 @@
     "dev": "dotenv -c -- turbo dev --concurrency 15",
     "lint": "turbo lint",
     "clean": "turbo clean",
+    "e2e": "turbo e2e",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:push": "turbo db:push",
     "db:generate": "turbo db:generate",
