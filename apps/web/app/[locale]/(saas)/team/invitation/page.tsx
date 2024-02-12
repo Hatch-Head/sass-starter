@@ -1,95 +1,127 @@
-"use server";
-
+import { ServerAnalytics } from "@acme/analytics";
 import { createApiCaller } from "api";
 import { redirect } from "next/navigation";
-import { Error } from "../../../../../modules/shared/components/Error";
+import { Error as ErrorView } from "../../../../../modules/shared/components/Error";
 
-const TeamInvite = async ({ searchParams }) => {
-  const code = searchParams.code || undefined;
+class InvitationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = message;
+  }
+}
+
+const InvitationPage = async ({ searchParams }) => {
+  const code = searchParams?.code;
+  const Analytics = new ServerAnalytics();
+
+  /**
+   * No code in the query
+   */
+  if (!code) {
+    Analytics.trackError(
+      "TEAM_MEMBER_JOINED",
+      new InvitationError("No code in query"),
+    );
+    return redirect("/");
+  }
   const apiCaller = await createApiCaller();
 
-  // - validate invitations first rather than just creating detached user accounts
-  // - then create the user account
-
-  /**
-   * No code
-   */
-  if (!code)
-    return <Error message="No code found" title="No code" statusCode={400} />;
-
-  /**
-   * Check the invitation exists
-   */
   const invitation = await apiCaller.team.invitationById({
     id: code,
   });
 
-  if (!invitation)
-    return (
-      <Error
-        title="Invalid invitation"
-        message="Your invitation is not valid, please contact the team owner"
-        statusCode={400}
-      />
-    );
-
   /**
-   * Check invitation as not expired
+   * No invitation
    */
-  if (invitation.expiresAt.getTime() < new Date().getTime())
+  if (!invitation) {
+    Analytics.trackError(
+      "TEAM_MEMBER_JOINED",
+      new InvitationError("No invitation was found"),
+    );
     return (
-      <Error
-        title="Invitation expired"
-        message="Your invitation has expired, please contact the team owner"
-        statusCode={400}
+      <ErrorView
+        statusCode={403}
+        title="Invalid invitation"
+        message="Your invitation is not valid. "
       />
     );
+  }
 
   /**
-   * If user is not logged in, redirect to login page. They should be redirected back here after login
+   * Expired invitation
+   */
+  if (invitation.expiresAt.getTime() < new Date().getTime()) {
+    Analytics.trackError(
+      "TEAM_MEMBER_JOINED",
+      new InvitationError("Invitation expired"),
+    );
+    return (
+      <ErrorView
+        statusCode={403}
+        title="Expired invitation"
+        message="Your invitation has expired."
+      />
+    );
+  }
+
+  /**
+   * No user (they will be redirected back here once they've signed in and restart the flow)
    */
   const user = await apiCaller.auth.user();
+
   if (!user)
     return redirect(
-      `/auth/login?invitationCode=${invitation.id}&email=${invitation.email}`,
+      `/auth/signup?invitationCode=${invitation.id}&email=${encodeURIComponent(
+        invitation.email,
+      )}`,
     );
 
+  Analytics.identifyUser(user);
+
   /**
-   * If user is already in the team, redirect to the team dashboard. Should not happen but just incase
-   * Will direct home if there is not team slug
+   * User has already accepted the invite through the auth flow
    */
-  const memberships = user.teamMemberships || [];
-  if (memberships.some((m) => m.team.id === invitation.team_id))
-    return redirect(`/${invitation.team?.slug}`);
+  const existingTeam = user.teamMemberships?.find(
+    (m) => m.team.id === invitation.team_id,
+  );
+  if (existingTeam) {
+    Analytics.trackEvent("TEAM_MEMBER_JOINED", existingTeam);
+    // Success redirect to team
+    return redirect(`/${existingTeam.team.slug}`);
+  }
 
   try {
     const team = await apiCaller.team.acceptInvitation({
       id: code,
     });
 
-    /**
-     * Something went wrong - should not get here
-     */
-    if (!team)
+    // Should not get here as the procedure should throw an error if something goes wrong
+    if (!team) {
+      Analytics.trackError(
+        "TEAM_MEMBER_JOINED",
+        new InvitationError("Unknown error"),
+      );
       return (
-        <Error
-          title="Could not accept invitation"
-          message="Something went wrong, please contact the team. owner"
+        <ErrorView
           statusCode={400}
+          title="Could not accept invitation"
+          message="There was something wrong with your invitation."
         />
       );
+    }
 
-    return redirect(`/${team.slug}/dashboard`);
+    Analytics.trackEvent("TEAM_MEMBER_JOINED", team);
+    // Success redirect to team
+    return redirect(`/${team.slug}`);
   } catch (e) {
-    console.error(e);
-    return (
-      <Error
-        title="Could not accept invitation"
-        message="Something went wrong, please contact the team owner."
-        statusCode={400}
-      />
-    );
+    Analytics.trackError("TEAM_MEMBER_JOINED", e);
+
+    <ErrorView
+      statusCode={500}
+      title="Could not accept invitation"
+      message={e.message}
+    />;
   }
 };
 
-export default TeamInvite;
+export default InvitationPage;

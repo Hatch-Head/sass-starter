@@ -55,6 +55,17 @@ export interface SelectProps
   align?: "start" | "center" | "end";
 }
 
+interface SelectComponent
+  extends React.ForwardRefExoticComponent<
+    React.PropsWithChildren<SelectProps> &
+      React.RefAttributes<HTMLSelectElement>
+  > {
+  Item: typeof SelectItem;
+  Group: typeof SelectGroup;
+  Separator: typeof SelectSeparator;
+  Label: typeof SelectLabel;
+}
+
 const Select = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Root>,
   SelectProps
@@ -106,10 +117,9 @@ const Select = React.forwardRef<
       <Error message={error} />
     </div>
   ),
-);
+) as SelectComponent;
 
 const SelectGroup = SelectPrimitive.Group;
-
 const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
@@ -245,6 +255,12 @@ const SelectSeparator = React.forwardRef<
   />
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+
+// Sub components
+Select.Item = SelectItem;
+Select.Group = SelectGroup;
+Select.Separator = SelectSeparator;
+Select.Label = SelectLabel;
 
 export {
   Select,

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@acme/analytics": "workspace:*",
     "@trpc/server": "^10.38.5",
     "ai": "^2.2.19",
     "auth": "workspace:*",
@@ -14,17 +15,21 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/react": "18.2.33",
     "encoding": "^0.1.13",
     "eslint-config-custom": "workspace:*",
+    "jest": "^29.7.0",
     "prisma": "^5.3.1",
+    "ts-jest": "^29.1.2",
     "tsconfig": "workspace:*"
   },
   "license": "MIT",
   "main": "./index.tsx",
   "name": "api",
   "scripts": {
-    "lint": "eslint \"**/*.ts*\""
+    "lint": "eslint \"**/*.ts*\"",
+    "test": "jest --config=./jest.config.mjs"
   },
   "types": "./**/.tsx",
   "version": "0.0.0"

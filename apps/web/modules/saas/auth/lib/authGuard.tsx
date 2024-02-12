@@ -29,8 +29,9 @@ export const isAuthedGuard = async (path: string, withTeamPrefix = true) => {
 export const notAuthedGuard = async () => {
   const apiCaller = await createApiCaller();
   const user = await apiCaller.auth.user();
+  console.log(user);
   if (!user) {
-    return redirect("/auth/login");
+    return redirect("/auth/login", "replace");
   }
 
   return user;

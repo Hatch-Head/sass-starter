@@ -1,12 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {
-  Select,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  type SelectProps,
-} from "./select";
+import { Select, SelectGroup, SelectItem, type SelectProps } from "./select";
 
 const meta: Meta<SelectProps> = {
   component: Select,
@@ -27,12 +20,12 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = (args: SelectProps) => (
   <Select className="w-[180px]" {...args}>
-    <SelectGroup>
-      <SelectItem value="option1">Option 1</SelectItem>
-      <SelectItem value="option2">Option 2</SelectItem>
-      <SelectItem value="option3">Option 3</SelectItem>
-      <SelectItem value="option4">Option 4</SelectItem>
-    </SelectGroup>
+    <Select.Group>
+      <Select.Item value="option1">Option 1</Select.Item>
+      <Select.Item value="option2">Option 2</Select.Item>
+      <Select.Item value="option3">Option 3</Select.Item>
+      <Select.Item value="option4">Option 4</Select.Item>
+    </Select.Group>
   </Select>
 );
 
@@ -66,10 +59,12 @@ Default.args = {
 
 export const WithError: Story = (args: SelectProps) => (
   <Select placeholder="Select an option" className="w-[180px]" {...args}>
-    <SelectItem value="option1">Option 1</SelectItem>
-    <SelectItem value="option2">Option 2</SelectItem>
-    <SelectItem value="option3">Option 3</SelectItem>
-    <SelectItem value="option4">Option 4</SelectItem>
+    <Select.Group>
+      <Select.Item value="option1">Option 1</Select.Item>
+      <Select.Item value="option2">Option 2</Select.Item>
+      <Select.Item value="option3">Option 3</Select.Item>
+      <Select.Item value="option4">Option 4</Select.Item>
+    </Select.Group>
   </Select>
 );
 
@@ -80,15 +75,15 @@ WithError.args = {
 
 export const Grouped: Story = (args: SelectProps) => (
   <Select placeholder="Select a pet" className="w-[180px]" {...args}>
-    <SelectGroup>
-      <SelectLabel>Dogs</SelectLabel>
-      <SelectItem value="French bulldog">French bulldog</SelectItem>
-      <SelectItem value="Poodle">Poodle</SelectItem>
-      <SelectSeparator />
-      <SelectLabel>Cats</SelectLabel>
-      <SelectItem value="option1">Siamese</SelectItem>
-      <SelectItem value="option2">Tonkinese</SelectItem>
-    </SelectGroup>
+    <Select.Group>
+      <Select.Label>Dogs</Select.Label>
+      <Select.Item value="French bulldog">French bulldog</Select.Item>
+      <Select.Item value="Poodle">Poodle</Select.Item>
+      <Select.Separator />
+      <Select.Label>Cats</Select.Label>
+      <Select.Item value="option1">Siamese</Select.Item>
+      <Select.Item value="option2">Tonkinese</Select.Item>
+    </Select.Group>
   </Select>
 );
 
@@ -105,14 +100,14 @@ Grouped.parameters = {
 
 export const DisabledOptions: Story = (args: SelectProps) => (
   <Select className="w-[180px]" {...args} value="option1">
-    <SelectGroup>
-      <SelectItem value="option1">Option 1</SelectItem>
-      <SelectItem value="option2" disabled>
+    <Select.Group>
+      <Select.Item value="option1">Option 1</Select.Item>
+      <Select.Item value="option2" disabled>
         Option 2
-      </SelectItem>
-      <SelectItem value="option3">Option 3</SelectItem>
-      <SelectItem value="option4">Option 4</SelectItem>
-    </SelectGroup>
+      </Select.Item>
+      <Select.Item value="option3">Option 3</Select.Item>
+      <Select.Item value="option4">Option 4</Select.Item>
+    </Select.Group>
   </Select>
 );
 DisabledOptions.args = {};
@@ -121,11 +116,11 @@ export const Advanced: Story = (args: SelectProps) => (
   <Select className="w-[180px]" {...args} value="option1">
     <SelectGroup>
       <SelectItem value="option1">Option 1</SelectItem>
-      <SelectItem value="option2" disabled>
+      <Select.Item value="option2" disabled>
         Option 2
-      </SelectItem>
-      <SelectItem value="option3">Option 3</SelectItem>
-      <SelectItem value="option4">Option 4</SelectItem>
+      </Select.Item>
+      <Select.Item value="option3">Option 3</Select.Item>
+      <Select.Item value="option4">Option 4</Select.Item>
     </SelectGroup>
   </Select>
 );

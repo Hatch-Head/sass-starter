@@ -4,7 +4,7 @@ import { userAuthFile } from './config';
 
 test.use({ storageState: userAuthFile });
 
-test.skip('Authenticated users redirects', () => {
+test.describe('Authenticated users redirects', () => {
 
     test("Authenticated users can't access login form", async ({ page }) => {
         await page.goto('/auth/login');
@@ -29,7 +29,7 @@ test.skip('Authenticated users redirects', () => {
 })
 
 
-test.skip('Unauthorized users redirects', () => {
+test.describe('Unauthorized users redirects', () => {
     test('Unauthorized users can\'t onboard', async ({ page }) => {
         await page.goto('/onboarding');
         await page.waitForURL("/onboarding")

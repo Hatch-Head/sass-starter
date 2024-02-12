@@ -1,4 +1,5 @@
 import { SignupForm } from "@saas/auth/components";
+import { isAuthedGuard } from "@saas/auth/lib/authGuard";
 import { getTranslator } from "next-intl/server";
 
 export async function generateMetadata({ params: { locale, view } }) {
@@ -9,6 +10,7 @@ export async function generateMetadata({ params: { locale, view } }) {
   };
 }
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  await isAuthedGuard("/");
   return <SignupForm />;
 }
