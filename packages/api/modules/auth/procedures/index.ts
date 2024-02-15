@@ -5,6 +5,7 @@ export * from "./forgot-password";
 export * from "./login-with-email";
 export * from "./login-with-password";
 export * from "./logout";
+export * from "./reset-password";
 export * from "./signup";
 export * from "./user";
 export * from "./verify-otp";

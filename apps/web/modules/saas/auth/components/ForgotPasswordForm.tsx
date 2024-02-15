@@ -46,7 +46,10 @@ export function ForgotPasswordForm() {
     try {
       await forgotPasswordMutation.mutateAsync({
         email,
-        callbackUrl: new URL("/auth/verify", window.location.origin).toString(),
+        callbackUrl: new URL(
+          "/auth/reset-password",
+          window.location.origin,
+        ).toString(),
       });
 
       const redirectSearchParams = new URLSearchParams();
