@@ -13,7 +13,7 @@ setup('authenticate', async ({ browser }) => {
     await page.locator('input[name="email"]').click();
     await page.locator('input[name="email"]').fill('andrew@hatchhead.co');
     await page.locator('input[name="password"]').click();
-    await page.locator('input[name="password"]').fill('password');
+    await page.locator('input[name="password"]').fill('newPassword');
 
     await page.getByRole('button', { name: 'Sign in' }).click();
 

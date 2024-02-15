@@ -4,6 +4,11 @@ test.describe('Registration', () => {
 
     test('User can register with email/password', async ({ page, context, browser }) => {
 
+        /**
+         * Go through the password reset flow from the login form
+         */
+        const newPassword = 'newPassword'
+
         await page.goto('/auth/login');
 
         await page.getByRole('tab', { name: 'Password' }).click();
@@ -32,18 +37,35 @@ test.describe('Registration', () => {
         ]);
 
         await newPage.waitForURL('**/auth/reset-password**');
-        await newPage.getByTestId('input-newPassword').fill("newPassword");
-        await newPage.getByTestId('input-confirmPassword').fill("newPassword");
+        await newPage.getByTestId('input-newPassword').fill(newPassword);
+        await newPage.getByTestId('input-confirmPassword').fill(newPassword);
         await newPage.getByRole('button', { name: 'Reset Password' }).click();
-
         await newPage.waitForSelector('text=Password reset successfully');
 
-        await newPage.waitForURL("/")
+        /**
+         * Confirm new password works
+         */
+
+        // Logout
+
+        const loginPage = await browser.newPage()
+
+        // Login with new password
+        await loginPage.goto('http://localhost:3000/');
+        await loginPage.waitForURL('/auth/login');
+        await loginPage.getByRole('tab', { name: 'Password' }).click();
+        await loginPage.locator('input[name="email"]').click();
+        await loginPage.locator('input[name="email"]').fill('andrew@hatchhead.co');
+        await loginPage.locator('input[name="email"]').press('Tab');
+        await loginPage.locator('input[name="password"]').fill(newPassword);
+        await loginPage.getByRole('button', { name: 'Sign in' }).click();
+
+        await loginPage.waitForURL('/');
 
         await newPage.close();
         await emailPage.close();
         await page.close();
-        //await browser.close();
+        await loginPage.close();
     });
 
 
@@ -56,6 +78,7 @@ test.describe('Registration', () => {
         await page.getByRole('button', { name: 'Reset Password' }).click();
 
         await page.getByText("Passwords do not match")
+        await page.close();
     });
 
     test("Invalid tokens should show an error", async ({ page }) => {
@@ -67,6 +90,7 @@ test.describe('Registration', () => {
         await page.getByRole('button', { name: 'Reset Password' }).click();
 
         await page.getByText("Invalid token")
+        await page.close();
     })
 
 });

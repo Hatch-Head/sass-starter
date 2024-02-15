@@ -17,7 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { AnalyticsIdentifyUser } from "../../../../app/libs/analytics";
+// import { AnalyticsIdentifyUser } from "../../../../app/libs/analytics";
 import { useUser } from "../hooks";
 import SigninModeSwitch from "./SigninModeSwitch";
 import { SocialSigninButton } from "./SocialSigninButton";
@@ -81,7 +81,7 @@ export function LoginForm() {
   useEffect(() => {
     console.warn("LOGIN REDIRECT", user, loaded);
     if (user && loaded) {
-      AnalyticsIdentifyUser(user);
+      // AnalyticsIdentifyUser(user);
       handleRedirect();
     }
   }, [user, loaded]);
@@ -94,7 +94,7 @@ export function LoginForm() {
           email,
           password: password!,
         });
-        AnalyticsIdentifyUser(user.user);
+        // AnalyticsIdentifyUser(user.user);
 
         handleRedirect();
       } else {

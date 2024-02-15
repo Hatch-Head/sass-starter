@@ -62,7 +62,7 @@ export function UserContextProvider({
       type: "logout",
       user: null,
     } satisfies AuthEvent);
-    router.replace("/");
+    router.replace("/auth/login");
   };
 
   useEffect(() => {
