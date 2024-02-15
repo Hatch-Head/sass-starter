@@ -1,10 +1,10 @@
 "use client";
 
-import WebAnalytics from "@acme/analytics";
+// import { WebAnalytics } from "@acme/analytics";
 import { useUser } from "@saas/auth/hooks";
 import { useEffect } from "react";
 
-const analytics = WebAnalytics();
+// const analytics = new WebAnalytics();
 
 /**
  * Component to init Analytics
@@ -12,20 +12,13 @@ const analytics = WebAnalytics();
  */
 export const Analytics = () => {
   const user = useUser();
-  useEffect(() => {
-    if (IS_PROD) {
-      analytics.init();
-    } else {
-      console.warn("Analytics is disabled in development mode");
-    }
-  }, []);
 
   /**
    * Handle logout
    */
   useEffect(() => {
     if (user.loaded && !user?.user) {
-      analytics.clearUser();
+      //      analytics.clearUser();
     }
   }, [user]);
 

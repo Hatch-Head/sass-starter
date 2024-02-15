@@ -27,11 +27,6 @@ test.describe('Registration', () => {
 
     await emailPage.getByText(' Welcome to ACME!').first().click();
 
-    // Clicking on link opens new tab
-    // var pagePromise = context.waitForEvent('page');
-    // await emailPage.frameLocator('iframe >> nth=0').getByRole('link', { name: 'Active account →' }).click()
-    // const newPage = await pagePromise;
-
     // Access the iframe
     const iframeLocator = emailPage.frameLocator('iframe >> nth=0'); // Adjust the selector to target the specific iframe
     const button = await iframeLocator.getByRole('link', { name: 'Active account →' }); // Adjust the role and name to target the specific button

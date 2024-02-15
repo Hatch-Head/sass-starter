@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@acme/analytics": "workspace:*",
     "@acme/ui": "workspace:*",
     "@hookform/resolvers": "^3.3.1",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -17,7 +18,6 @@
     "@trpc/client": "^10.38.5",
     "@trpc/react-query": "^10.38.5",
     "ai": "^2.2.19",
-    "@acme/analytics": "workspace:*",
     "api": "workspace:*",
     "boring-avatars": "^1.10.1",
     "class-variance-authority": "^0.7.0",
@@ -63,6 +63,7 @@
     "tailwind-config": "workspace:*",
     "tailwindcss": "3.3.3",
     "tailwindcss-themer": "^3.1.1",
+    "ts-node": "^10.9.2",
     "tsconfig": "workspace:*",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "5.2.2"
@@ -76,6 +77,9 @@
     "start": "next start",
     "storybook": "dotenv -c -e ../../.env -- storybook dev -p 6006",
     "e2e": "playwright test"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./e2e/seed.ts"
   },
   "version": "0.1.0"
 }

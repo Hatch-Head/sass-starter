@@ -18,7 +18,6 @@ const Page = async () => {
       <div className="flex w-full max-w-sm flex-col">
         <h1 className="mb-2">Select a team</h1>
         <div className="rounded-lg border border-gray-300">
-          {JSON.stringify(teamMemberships)}
           {teamMemberships.map((membership) => (
             <Link
               key={membership.id}
