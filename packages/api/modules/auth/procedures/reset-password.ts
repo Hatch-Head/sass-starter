@@ -55,7 +55,7 @@ export const resetPassword = publicProcedure
 
             return session;
 
-        } catch (e) {
+        } catch (e: any) {
             throw new TRPCError({
                 code: "NOT_FOUND",
                 message: e.message || "Something went wrong",
